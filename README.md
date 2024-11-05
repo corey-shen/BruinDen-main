@@ -8,9 +8,9 @@ BruinDen is a UCLA-specific platform created to streamline the off-campus housin
 Platform: Web-based application
 
 ### Tech Stack
-Frontend: React
-Backend: Node.js
-Map Integration: Google Maps API for real-time mapping of apartment locations
+Frontend: React  
+Backend: Node.js  
+Map Integration: Google Maps API for real-time mapping of apartment locations  
 User Authentication: UCLA Single Sign-On (SSO) system to ensure only verified UCLA students can access the platform
 
 
