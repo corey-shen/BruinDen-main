@@ -17,13 +17,12 @@ const Search = () => {
             "
         >
             <div className="flex flex-row items-center space-x-3">
-                <BiSearch size={30} style={{ color: '#2f4858'}} />
+                <BiSearch size={30} style={{ color: '#2F4858' }}/>
                 <input 
                     type="text" 
                     placeholder="Search"
                     className="
                     flex-1
-                    bg-transparent
                     outline-none
                     text-lg
                     placeholder-gray-500

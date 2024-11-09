@@ -1,5 +1,5 @@
 import './globals.css'
-import {Oswald} from "next/font/google";
+import {Montserrat} from "next/font/google";
 import Navigationbar from './components/navigation_bar/Navigationbar';
 
 export const metadata = {
@@ -8,7 +8,7 @@ export const metadata = {
 
 }
 
-const font = Oswald({
+const font = Montserrat({
   subsets: ["latin"]
 });
 
