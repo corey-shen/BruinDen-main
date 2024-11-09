@@ -3,7 +3,7 @@ import Logo from "./Logo";
 
 const Navigationbar = () =>{
     return(
-        <div className = "fixed w-full bg-white z-10 shadow-sm">
+        <div className = "fixed w-full z-10 shadow-sm" style = {{backgroundColor: '#33658A'}}>
             <div
                 className = "py-4 board-b-[1px]"
             >
