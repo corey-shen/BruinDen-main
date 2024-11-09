@@ -1,7 +1,14 @@
-const Container = () =>{
+'use client';{/* client component*/}
+
+
+interface ContainerProperties{
+    children: React.ReactNode;
+}
+const Container: React.FC<ContainerProperties>= ({children}) =>{
     return (
-        <div>
-            This is a Container
+        <div className ="max-w-[2520px] max-auto xl:px-20 md:px-10 sm:px-2 px-4"
+        >
+            {children}
         </div>
     )
 }
