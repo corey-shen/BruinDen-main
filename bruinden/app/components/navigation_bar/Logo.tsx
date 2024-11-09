@@ -7,7 +7,7 @@ const Logo = () =>{
     const router = useRouter();
 
     return (
-        <Image alt = "BruinDen Logo" className="hidden md:block cursor-pointer" height = "100" width="100" src="/images/temp_logo.png"></Image>
+        <Image alt = "BruinDen Logo" className="hidden md:block cursor-pointer" height = "80" width="80" src="/images/temp_logo.png"></Image>
     );
 }
 

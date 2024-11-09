@@ -1,9 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilites;
-
 html,
 body,
 :root {
     height: 100%;
+    width: 100%;
 }
