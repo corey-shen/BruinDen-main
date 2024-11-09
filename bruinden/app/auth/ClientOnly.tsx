@@ -14,7 +14,6 @@ const ClientOnly : React.FC<ClientOnlyProperties> = ({
     useEffect(() => {
         setHasMounted(true);
         }, [] );
-
     //if application has not mounted, then return null, conditional rendering
     if (!hasMounted){
         return null;
