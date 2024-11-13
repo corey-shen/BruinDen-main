@@ -1,9 +1,15 @@
-                  import { IconType } from "react-icons";
+'use client';
+
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
+import qs from "query-string";
+import { IconType } from "react-icons";
 import { TbLetterR } from "react-icons/tb";
 
 interface CategoryBoxProps {
     icon: IconType;
     label: string;
+    description?: string; // Not following video, added to fix Categories.tsx bug
     selected?: boolean;
 }
 
@@ -12,8 +18,36 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
     label,
     selected
 }) => {
+    const router = useRouter();
+    const params = useSearchParams();
+
+    const handleClick = useCallback(() => {
+        let currentQuery = {}; // Define empty query
+
+        if (params) {   // Look through current params
+            currentQuery = qs.parse(params.toString()); // Parse so they are an object, not a string
+        }
+
+        const updatedQuery: any = {
+            ...currentQuery,
+            category: label
+        }
+
+        if (params?.get('category') == label) { // Check if category is already selected
+            delete updatedQuery.category;   // Deselect if clicked again
+        }
+
+        const url = qs.stringifyUrl({   // Generate URL string
+            url: '/',                   // Pass path name
+            query: updatedQuery         // Pass newest query
+        }, { skipNull: true });
+
+        router.push(url);
+    }, [label, params, router]);
+
     return (
         <div
+            onClick={handleClick}
             className={`
             flex
             flex-col
