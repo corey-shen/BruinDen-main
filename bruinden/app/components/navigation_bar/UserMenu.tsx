@@ -39,10 +39,12 @@ const UserMenu = () => {
                     <MenuItem
                         onClick = {() => {}}
                         label = "Log In"
+                        reference='login'
                     />
                     <MenuItem
                         onClick = {() => {}}
                         label = "Create a Listing"
+                        reference='create_listing'
                     />
                 </>
             </div>
