@@ -4,7 +4,7 @@ import Avatar from '../Avatar';
 import { useState, useCallback } from 'react';
 import MenuItem from './MenuItem';
 import LoginPage from '../../auth/LoginPage';
-import SignUpPage from '../../auth/SignUpPage';  // Import the SignUpPage component
+import SignUpPage from '../../auth/SignUpPage';
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,18 +16,18 @@ const UserMenu = () => {
   }, []);
 
   const handleLoginClick = useCallback(() => {
-    setIsOpen(false);  // Close the menu
-    setShowLogin(true);  // Show the login page
+    setIsOpen(false);
+    setShowLogin(true);
   }, []);
 
   const handleSignUpClick = useCallback(() => {
-    setIsOpen(false);  // Close the menu
-    setShowSignUp(true);  // Show the sign-up page
+    setIsOpen(false);
+    setShowSignUp(true);
   }, []);
 
   const handleBackClick = useCallback(() => {
-    setShowLogin(false);  // Hide the login page
-    setShowSignUp(false);  // Hide the sign-up page
+    setShowLogin(false);
+    setShowSignUp(false);
   }, []);
 
   return (
@@ -50,18 +50,20 @@ const UserMenu = () => {
               <MenuItem
                 onClick={handleLoginClick}
                 label="Log In"
+                reference="#"
               />
               <MenuItem
                 onClick={handleSignUpClick}
                 label="Sign Up"
+                reference="#"
               />
               <MenuItem
                 onClick={() => {}}
                 label="Create a Listing"
+                reference="#"
               />
             </>
           </div>
-
         </div>
       )}
       {showLogin && (
