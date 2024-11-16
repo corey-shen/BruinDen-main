@@ -6,6 +6,7 @@ import Search from "./Search";
 import Home from "./Home";
 import About from "./About";
 import Meet_People from './Meet_People';
+import { Suspense } from "react";
 
 const Navigationbar = () => {
   return (
@@ -28,7 +29,9 @@ const Navigationbar = () => {
           </div>
         </Container>
       </div>
+      <Suspense fallback={<div>Loading...</div>}>
       <Categories />
+      </Suspense>
     </div>
   );
 };
