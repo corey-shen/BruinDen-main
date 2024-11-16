@@ -1,5 +1,5 @@
 import Container from "../Container";
-import Categories from "./Categories";
+//import Categories from "./Categories";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
 import Search from "./Search";
@@ -28,7 +28,7 @@ const Navigationbar = () => {
           </div>
         </Container>
       </div>
-      <Categories />
+      
     </div>
   );
 };
