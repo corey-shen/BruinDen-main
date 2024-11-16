@@ -1,3 +1,5 @@
+'use client';
+
 import Container from "../Container";
 
 import { MdAttachMoney } from "react-icons/md";
@@ -6,6 +8,7 @@ import { FaPersonWalking } from "react-icons/fa6";
 import { MdBedroomParent } from "react-icons/md";
 import { MdBathroom } from "react-icons/md";
 import CategoryBox from "../CategoryBox";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export const categories = [
     {
@@ -26,18 +29,28 @@ export const categories = [
 
     },
     {
-        label: 'Bathrooms',
-        icon: MdBathroom,
-        description: 'This apartment has ___ bathrooms!'
-    },
-    {
         label: 'Distance to campus',
         icon: FaPersonWalking,
         description: 'This apartment is close to campus!'
+    },
+    {
+        label: 'Bathrooms',
+        icon: MdBathroom,
+        description: 'This apartment has ___ bathrooms!'
     }
 ]
 
 const Categories = () => {
+    const params = useSearchParams();
+    const category = params?.get('category');
+    const pathname = usePathname();
+
+    const isMainPage = pathname == '/';
+
+    if (!isMainPage) {
+        return null;
+    }
+
     return (
         <Container>
             <div 
@@ -54,7 +67,7 @@ const Categories = () => {
                     <CategoryBox 
                         key={item.label}
                         label={item.label}
-                        description={item.description}
+                        selected={category == item.label}
                         icon={item.icon}
                     />
                 ))}
