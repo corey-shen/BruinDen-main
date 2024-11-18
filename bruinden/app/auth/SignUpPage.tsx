@@ -1,6 +1,7 @@
 'use client';
 import { useState, useCallback } from 'react';
 import { FcGoogle } from 'react-icons/fc'; // Google icon
+import axios from 'axios';
 
 // Define the prop types for the component
 interface SignUpPageProps {
@@ -14,15 +15,31 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [collegeYear, setCollegeYear] = useState('');
   const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [idError, setIdError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGoogleSignUp = useCallback(() => {
     // Implement Google sign-up here
   }, []);
 
-  const handleSignUp = useCallback(() => {
+  const handleSignUp = useCallback(async () => {
     // Implement sign-up here
-  }, [firstName, lastName, universityId, profileImage, collegeYear, gender]);
+    const fullName = firstName + " " + lastName;
+    const data = {'name': fullName, 'email': email, 'password': password, 'gender': gender, 'collegeYear': collegeYear}
+    axios.post('../api/signup', data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+
+  }, [firstName, lastName, email, password, gender, collegeYear]);
 
   const handleImageUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -70,6 +87,22 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
             style={{ color: '#2F4858', fontSize: '0.875rem' }}
           />
         </div>
+        <input
+          type="text"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full mb-2 py-2 px-4 border border-gray-300 rounded-md text-sm"
+          style={{ color: '#2F4858', fontSize: '0.875rem' }}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full mb-2 py-2 px-4 border border-gray-300 rounded-md text-sm"
+          style={{ color: '#2F4858', fontSize: '0.875rem' }}
+        />
         <input
           type="text"
           placeholder="University ID#"
