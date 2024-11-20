@@ -2,6 +2,7 @@
 import { useState, useCallback } from 'react';
 import { FcGoogle } from 'react-icons/fc'; // Google icon
 import axios from 'axios';
+import { Snackbar } from '@mui/material';
 
 // Define the prop types for the component
 interface SignUpPageProps {
@@ -19,6 +20,8 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
   const [password, setPassword] = useState('');
   const [idError, setIdError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [snackBarText, setSnackBarText] = useState('');
 
   const handleGoogleSignUp = useCallback(() => {
     // Implement Google sign-up here
@@ -26,10 +29,23 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
 
   const handleSignUp = useCallback(async () => {
     // Implement sign-up here
+    if (!firstName || ! lastName || !email || !password || !gender || !collegeYear || !universityId){
+      setSnackBarText('Please fill out all fields');
+      setOpen(true);
+      return;
+    }
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    if (!regex.test(email)){
+      console.log('here')
+      setSnackBarText('Please enter a valid email address');
+      setOpen(true);
+      return;
+    }
     const fullName = firstName + " " + lastName;
     const data = {'name': fullName, 'email': email, 'password': password, 'gender': gender, 'collegeYear': collegeYear}
     axios.post('../api/signup', data)
       .then(function (response) {
+        setIsLoading(true);
         console.log(response);
       })
       .catch(function (error) {
@@ -37,6 +53,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
       })
       .finally(() => {
         setIsLoading(false);
+        onBack()
       })
 
   }, [firstName, lastName, email, password, gender, collegeYear]);
@@ -161,6 +178,12 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
           >
             Sign Up
           </button>
+          <Snackbar
+              open={open}
+              autoHideDuration={2000}
+              onClose={() => setOpen(false)}
+              message={snackBarText}
+          />
         </div>
       </div>
     </div>
