@@ -3,14 +3,20 @@ import Image from "next/image";
 import { FaUserAlt, FaRocket } from 'react-icons/fa'; 
 
 const About = () => {
+  const teamMembers = [
+    "Kelsey Shan",
+    "Zhanhao Cao", 
+    "Richard Chen", 
+    "Jayden Truong", 
+    "Corey Shen", 
+    "Maddox Yu"
+  ];
   return (
     <div style={{ padding: "100px", color: "#2F4858" }}>
-      <h1 style={{ fontSize: "50px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight:"bold"}}>
+      <h1 style={{ fontSize: "50px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight: "bold" }}>
         <FaRocket/> Our Mission
       </h1>
       <hr style={{ border: "3px solid #F6AE2D", marginBottom: "20px" }} />
-
-      {/* Problem and Solution Section */}
       <div style={{ display: "flex", gap: "2vw", marginBottom: "20px" }}>
         <div style={{ 
           flex: "1", 
@@ -19,7 +25,7 @@ const About = () => {
           borderRadius: "1vw", 
           boxShadow: "0 4px 8px rgba(0,0,0,0.2)" 
         }}>
-          <h3 style={{ fontSize: "2vw", color: "#FFFFFF", marginBottom: "20px", fontWeight:"bold" }}>
+          <h3 style={{ fontSize: "2vw", color: "#FFFFFF", marginBottom: "20px", fontWeight: "bold" }}>
             The Problem
           </h3>
           <hr style={{ border: "3px solid #FFFFFF", marginBottom: "20px" }} />
@@ -47,7 +53,7 @@ const About = () => {
           borderRadius: "1vw", 
           boxShadow: "0 4px 8px rgba(0,0,0,0.2)" 
         }}>
-          <h3 style={{ fontSize: "2vw", color: "#FFFFFF", marginBottom: "20px", fontWeight:"bold" }}>
+          <h3 style={{ fontSize: "2vw", color: "#FFFFFF", marginBottom: "20px", fontWeight: "bold" }}>
             Our Solution
           </h3>
           <hr style={{ border: "3px solid #FFFFFF", marginBottom: "20px" }} />
@@ -56,34 +62,32 @@ const About = () => {
           </p>
         </div>
       </div>
-
       <p style={{ fontSize: "1.2vw", color: "#2F44858", marginTop: "30px", marginBottom: "20px", textAlign: "center" }}>
         Many students struggle to find affordable housing. They often use platforms like Reddit, Facebook, or Snapchat, which lack sufficient reach, have potential security risks, and are often ineffective.
       </p>
-
       <p style={{ fontSize: "1.2vw", color: "#2F44858", marginTop: "30px", marginBottom: "20px", textAlign: "center" }}>
         BruinDen aims to make the off-campus housing process easier. Our app features UCLA Login, interactive maps, advanced filtering options, personalized profiles, post-saving, recommendations, and a rating system.
       </p>
-
-      <h1 style={{ fontSize: "50px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight:"bold" }}>
+      <h1 style={{ fontSize: "50px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight: "bold" }}>
         <FaUserAlt /> Meet the Team
       </h1>
       <hr style={{ border: "3px solid #F6AE2D", marginBottom: "20px" }} />
       <p style={{ fontSize: "1.2vw", color: "#2F44858" }}>
         We are UCLA students dedicated to making housing easier for our peers!
       </p>
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px", gap: "20px" }}>
-        {Array.from({ length: 6 }).map((_, index) => (
-          <div 
-            key={index} 
-            style={{ 
-              flex: "1",
-              height: "20vw", 
+      <div style={{ display: "flex", justifyContent: "space-evenly", width: "100%", flexWrap: "wrap", marginTop: "20px", gap: "20px" }}>
+        {teamMembers.map((member, index) => (
+          <div key={index} style={{ width: "calc(100% / 3 - 40px)", textAlign: "center" }}>
+            <div style={{ 
+              width: "100%",
+              height: "20vw",
               backgroundColor: "#86BBD8",
-              borderRadius: "1vw"
-            }}
-          >
-            {/* ADD HEADSHOT IMAGE FOR EACH TEAM MEMBER */}
+              borderRadius: "1vw",
+              margin: "0 auto"
+            }}>
+              {/* ADD HEADSHOT IMAGE FOR EACH TEAM MEMBER */}
+            </div>
+            <h4 style={{ marginTop: "10px", fontSize: "1.5vw", fontWeight: "bold" }}>{member}</h4>
           </div>
         ))}
       </div>
