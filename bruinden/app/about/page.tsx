@@ -75,7 +75,7 @@ const About: React.FC = () => {
          }}>
           <FaRocket/> Our Mission
         </h1>
-        <hr style={{ border: "3px solid #F6AE2D", marginBottom: "20px" }} />
+        <hr style={{ border: "3px solid #33658A", marginBottom: "20px" }} />
         <div style={{ display: "flex", gap: "2vw", marginBottom: "20px" }}>
           <div style={{ 
             flex: "1", 
@@ -129,7 +129,7 @@ const About: React.FC = () => {
         <h1 style={{ fontSize: "3rem", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight: "bold", justifyContent: "center", textAlign: "center" }}>
           <FaUserAlt/> Meet the Team
         </h1>
-        <hr style={{ border: "3px solid #F6AE2D", marginBottom: "30px" }} />
+        <hr style={{ border: "3px solid #33658A", marginBottom: "30px" }} />
         <p style={{ fontSize: "30px", color: "#2F4858", textAlign: "center" }}>
           We are UCLA students dedicated to making housing easier for our peers!
         </p>
