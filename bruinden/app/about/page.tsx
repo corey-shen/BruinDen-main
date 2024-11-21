@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import Image from "next/image";
 import { FaUserAlt, FaRocket } from 'react-icons/fa'; 
@@ -63,31 +64,63 @@ const About = () => {
         </div>
       </div>
       <p style={{ fontSize: "1.2vw", color: "#2F44858", marginTop: "30px", marginBottom: "20px", textAlign: "center" }}>
-        Many students struggle to find affordable housing. They often use platforms like Reddit, Facebook, or Snapchat, which lack sufficient reach, have potential security risks, and are often ineffective.
+        Many students struggle to find affordable housing. They often use platforms like Reddit, Facebook, or Snapchat, which lack sufficient reach, have potential security risks, and are often ineffective. BruinDen aims to make the off-campus housing process easier. Our app features UCLA Login, interactive maps, advanced filtering options, personalized profiles, post-saving, recommendations, and a rating system.
+
       </p>
-      <p style={{ fontSize: "1.2vw", color: "#2F44858", marginTop: "30px", marginBottom: "20px", textAlign: "center" }}>
-        BruinDen aims to make the off-campus housing process easier. Our app features UCLA Login, interactive maps, advanced filtering options, personalized profiles, post-saving, recommendations, and a rating system.
-      </p>
-      <h1 style={{ fontSize: "50px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight: "bold" }}>
-        <FaUserAlt /> Meet the Team
+      {/* Meet the Team Section */}
+      <h1
+        style={{
+          fontSize: "3rem",
+          marginBottom: "20px",
+          display: "flex",
+          alignItems: "center",
+          fontWeight: "bold",
+        }}
+      >
+        <FaUserAlt/> Meet the Team
       </h1>
-      <hr style={{ border: "3px solid #F6AE2D", marginBottom: "20px" }} />
-      <p style={{ fontSize: "1.2vw", color: "#2F44858" }}>
+      <hr style={{ border: "3px solid #F6AE2D", marginBottom: "30px" }} />
+      <p style={{ fontSize: "30px", color: "#2F4858", textAlign: "center" }}>
         We are UCLA students dedicated to making housing easier for our peers!
       </p>
-      <div style={{ display: "flex", justifyContent: "space-evenly", width: "100%", flexWrap: "wrap", marginTop: "20px", gap: "20px" }}>
+
+      {/* Team Members */}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "20px",
+          marginTop: "20px",
+        }}
+      >
         {teamMembers.map((member, index) => (
-          <div key={index} style={{ width: "calc(100% / 3 - 40px)", textAlign: "center" }}>
-            <div style={{ 
-              width: "100%",
-              height: "20vw",
-              backgroundColor: "#86BBD8",
+          <div
+            key={index}
+            style={{
+              width: "250px",
+              textAlign: "center",
+              background: "#86BBD8",
               borderRadius: "1vw",
-              margin: "0 auto"
-            }}>
-              {/* ADD HEADSHOT IMAGE FOR EACH TEAM MEMBER */}
+              padding: "20px",
+              boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+              transition: "transform 0.2s ease-in-out",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          >
+            <div
+              style={{
+                width: "100%",
+                height: "250px",
+                backgroundColor: "#FFFFFF",
+                borderRadius: "1vw",
+                marginBottom: "10px",
+              }}
+            >
+              {/* Add Headshot */}
             </div>
-            <h4 style={{ marginTop: "10px", fontSize: "1.5vw", fontWeight: "bold" }}>{member}</h4>
+            <h4 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{member}</h4>
           </div>
         ))}
       </div>
