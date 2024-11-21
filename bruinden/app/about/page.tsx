@@ -1,12 +1,12 @@
 import React from "react";
 import Image from "next/image";
-import { FaUserAlt, FaRocket } from 'react-icons/fa'; //for aesthetics 
+import { FaUserAlt, FaRocket } from 'react-icons/fa'; 
 
 const About = () => {
   return (
     <div style={{ padding: "100px", color: "#2F4858" }}>
       <h1 style={{ fontSize: "50px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight:"bold"}}>
-        <FaRocket/>  Our Mission
+        <FaRocket/> Our Mission
       </h1>
       <hr style={{ border: "3px solid #F6AE2D", marginBottom: "20px" }} />
 
@@ -19,11 +19,12 @@ const About = () => {
           borderRadius: "1vw", 
           boxShadow: "0 4px 8px rgba(0,0,0,0.2)" 
         }}>
-          <h3 style={{ fontSize: "2vw", color: "#FFFFFF", marginBottom: "20px", fontWeight:"bold"}}>
-            The Problem</h3>
+          <h3 style={{ fontSize: "2vw", color: "#FFFFFF", marginBottom: "20px", fontWeight:"bold" }}>
+            The Problem
+          </h3>
           <hr style={{ border: "3px solid #FFFFFF", marginBottom: "20px" }} />
           <p style={{ fontSize: "1.2vw", color: "#FFFFFF" }}>
-            Many students struggle to find college-budget-friendly apartments. The process requires figuring out logistics with roommates, subleasing, and scouring the web for listings.
+            Many students struggle to find college-budget-friendly apartments. The process requires complex logistics with roommates, subleasing, and extensive web searching.
           </p>
         </div>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "relative" }}>
@@ -47,30 +48,29 @@ const About = () => {
           boxShadow: "0 4px 8px rgba(0,0,0,0.2)" 
         }}>
           <h3 style={{ fontSize: "2vw", color: "#FFFFFF", marginBottom: "20px", fontWeight:"bold" }}>
-            Our Solution</h3>
+            Our Solution
+          </h3>
           <hr style={{ border: "3px solid #FFFFFF", marginBottom: "20px" }} />
           <p style={{ fontSize: "1.2vw", color: "#FFFFFF" }}>
-            BruinDen makes the process of moving off-campus more accessible and organized by developing an app specifically meant to serve Bruins.
+            BruinDen simplifies off-campus housing by offering a dedicated app for Bruins.
           </p>
         </div>
       </div>
 
-      <p style={{ fontSize: "1.2vw", color: "#2F44858", marginTop: "30px", marginBottom: "20px", textAlign: "center"  }}>
-      When trying to move off-campus many students struggle to find college-budget friendly apartments. The process is incredibly taxing and requires figuring out logistics with roommates, subleasing, and scouring the web for listing.
-      Many resort to using platforms like Reddit, Facebook, or Snapchat to find peers interested in taking over a lease or subleasing for the summer, but these platforms they lack sufficient reach, have potential security risks, and are often not an effective solution.
+      <p style={{ fontSize: "1.2vw", color: "#2F44858", marginTop: "30px", marginBottom: "20px", textAlign: "center" }}>
+        Many students struggle to find affordable housing. They often use platforms like Reddit, Facebook, or Snapchat, which lack sufficient reach, have potential security risks, and are often ineffective.
       </p>
 
-      <p style={{ fontSize: "1.2vw", color: "#2F44858", marginTop: "30px", marginBottom: "20px", textAlign: "center"  }}>
-      With BruinDen our goal is to make the process of moving off-campus more accessible and organized, by developing an app specifically meant to serve Bruins. BruinDen will allow renters to find places that match their needs, communicate with peers, and facilitate apartment transfers for the summer or post-graduation. 
-      The platform features user authentication via UCLA Login, dynamic apartment listings with an interactive map using Google Maps API, and advanced filtering options for price, size, and other preferences. Additional features include personalized user profiles, post-saving, recommendations, and a rating system to foster trust and ease of use.
+      <p style={{ fontSize: "1.2vw", color: "#2F44858", marginTop: "30px", marginBottom: "20px", textAlign: "center" }}>
+        BruinDen aims to make the off-campus housing process easier. Our app features UCLA Login, interactive maps, advanced filtering options, personalized profiles, post-saving, recommendations, and a rating system.
       </p>
 
-      <h1 style={{ fontSize: "50px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight:"bold"}}>
+      <h1 style={{ fontSize: "50px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight:"bold" }}>
         <FaUserAlt /> Meet the Team
       </h1>
       <hr style={{ border: "3px solid #F6AE2D", marginBottom: "20px" }} />
       <p style={{ fontSize: "1.2vw", color: "#2F44858" }}>
-        We are a group of UCLA students working to make the lives of our peers a little easier!
+        We are UCLA students dedicated to making housing easier for our peers!
       </p>
       <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px", gap: "20px" }}>
         {Array.from({ length: 6 }).map((_, index) => (
@@ -83,7 +83,7 @@ const About = () => {
               borderRadius: "1vw"
             }}
           >
-            {/*ADD HEADSHOT IMAGE FOR EACH TEAM MEMBER*/}
+            {/* ADD HEADSHOT IMAGE FOR EACH TEAM MEMBER */}
           </div>
         ))}
       </div>
