@@ -1,27 +1,31 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { HiOutlineArrowSmallLeft } from 'react-icons/hi2';
+import { HiOutlineArrowSmallRight } from 'react-icons/hi2';
+import { BsDot } from 'react-icons/bs';
+import { motion } from 'framer-motion';
 
-interface ImageMarqueeProps {
+interface ImageCarouselProps {
     images: string[];
     delay?: number;
 }
 
-const ImageMarquee: React.FC<ImageMarqueeProps> = ({ images, delay = 5000 }) => {
+const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, delay = 5000 }) => {
     const [current, setCurrent] = useState(0);
     const [paused, setPaused] = useState(false);
-    const [marqueeDelay, setMarqueeDelay] = useState(delay);
+    const [carouselDelay, setCarouselDelay] = useState(delay);
 
     // PANEL CONSTANTS
     const numImages = images.length;
-    const numPanels = numImages < 5 ? 1 : 1 + (Math.ceil((numImages - 5) / 8));
 
     const goToNextSlide = () => {
-        setCurrent((current + 1) % numPanels);
+        if (current === numImages - 1) { setCurrent(0); }
+        else { setCurrent(current + 1); }
     };
 
     const goToPreviousSlide = () => {
-        if (current == 0) { setCurrent(numPanels - 1); }
+        if (current == 0) { setCurrent(numImages - 1); }
         else { setCurrent(current - 1); }
     };
 
@@ -29,67 +33,60 @@ const ImageMarquee: React.FC<ImageMarqueeProps> = ({ images, delay = 5000 }) => 
         if (!paused) {
             const timer = setTimeout(() => {
                 goToNextSlide();
-                setMarqueeDelay(delay);
-            }, marqueeDelay);
+                setCarouselDelay(delay);
+            }, carouselDelay);
             return () => clearTimeout(timer);
         }
-    }, [current, paused, marqueeDelay, delay]);
+    }, [current, paused, carouselDelay, delay]);
 
-    const calculateColumns = (numImages: number) => {
-        return Math.ceil((numImages + 3) / 2);
-    }
-
-    const numColumns = calculateColumns(numImages);
-    console.log(numColumns);
     return (
-        <div className="relative w-full h-[60vh] overflow-hidden bg-white-800 mt-0 px-4">
-            <div
-                className="flex transition-transform duration-500 ease-in-out justify-start, items-start gap-x-4"
-                style={{ transform: `translateX(-${current * (105)}%)`,
-                marginTop: "0",
-                height: "100%"
-            }}
-            >
-                {/* FIRST PANEL*/}
-                <div
-                    className={`grid grid-rows-2 grid-cols-${ numColumns } gap-2 w-full h-[60vh]`}
+        <main className="px-14">
+            <div className="relative flex flex-col items-center py-5">
+                <div className="overflow-hidden w-full h-full">
+                    <motion.div
+                        className="flex snap-start snap-always"
+                        initial={{ x: 0}}
+                        animate={{ x: -current * 748}}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     >
-                        <div
-                            className="col-span-2 row-span-2"
-                        >
-                            <img
-                                src={images[0]}
-                                alt="Primary"
-                                className="w-full h-full object-cover rounded-lg"
-                            />
-                        </div>
-                            {images.slice(1).map((src, index) => (
-                                <div key={index} className='col-span-1 row-span-1' onClick={() => setCurrent(index + 1)}>
-                                    <img
-                                        src={src}
-                                        alt={`Image ${index + 1}`}
-                                        className="w-full h-full object-cover rounded-lg"
-                                    />
-                                </div>
-                            ))}
+                        {images.map((src, index) => (
+                            <motion.div className="flex items-center justify-center p-2 min-w-[50rem] h-[60vh]" key={index}>
+                                <img
+                                    src={src}
+                                    className="w-full h-full object-cover rounded"
+                                />
+                            </motion.div>
+                        ))}
+                    </motion.div>
                 </div>
             </div>
-
-            <button
-                onClick={goToPreviousSlide}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white px-4 py-2 rounded-full opacity-75 hover:opacity-100"
+            <div className="flex flex-row w-full justify-between">
+                <button
+                    className="bg-gray-100 p-3 rounded-full shadow transition-all hover-opacity-70"
+                    onClick={goToPreviousSlide}
                 >
-                &lt;
-            </button>
-
-            <button
-                onClick={goToNextSlide}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white px-4 py-2 rounded-full opacity-75 hover:opacity-100"
+                    <HiOutlineArrowSmallLeft />
+                </button>
+                <div className="flex flex-row gap-1">
+                    {images.map((_, index) => (
+                        <BsDot
+                            onClick={() => setCurrent(index)}
+                            key={index}
+                            className={`cursor-pointer text-2x1 ${
+                                index === current ? "text-gray-800" : "text-gray-400"
+                            }`}
+                        />
+                    ))}
+                </div>
+                <button
+                    className="bg-gray-100 p-3 rounded-full shadow transition-all hover-opacity-70"
+                    onClick={goToNextSlide}
                 >
-                &gt;
-            </button>
-        </div>
-    );  
-};
+                    <HiOutlineArrowSmallRight />
+                </button>
+            </div>
+        </main>
+    );
+}
 
-export default ImageMarquee;
+export default ImageCarousel;
