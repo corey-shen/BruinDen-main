@@ -1,10 +1,10 @@
-'use client';
-import { AiOutlineMenu } from 'react-icons/ai';
-import Avatar from '../Avatar';
-import { useState, useCallback } from 'react';
-import MenuItem from './MenuItem';
-import LoginPage from '../../auth/LoginPage';
-import SignUpPage from '../../auth/SignUpPage';
+"use client";
+import { AiOutlineMenu } from "react-icons/ai";
+import Avatar from "../Avatar";
+import { useState, useCallback } from "react";
+import MenuItem from "./MenuItem";
+import LoginPage from "../../../pages/auth/LoginPage";
+import SignUpPage from "../../../pages/auth/SignUpPage";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +44,10 @@ const UserMenu = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[200px] overflow-hidden right-0 top-12 text-sm" style={{ backgroundColor: '#2F4858' }}>
+        <div
+          className="absolute rounded-xl shadow-md w-[40vw] md:w-[200px] overflow-hidden right-0 top-12 text-sm"
+          style={{ backgroundColor: "#2F4858" }}
+        >
           <div className="flex flex-col cursor-pointer py-2">
             <>
               <MenuItem
@@ -66,12 +69,8 @@ const UserMenu = () => {
           </div>
         </div>
       )}
-      {showLogin && (
-        <LoginPage onBack={handleBackClick} />
-      )}
-      {showSignUp && (
-        <SignUpPage onBack={handleBackClick} />
-      )}
+      {showLogin && <LoginPage onBack={handleBackClick} />}
+      {showSignUp && <SignUpPage onBack={handleBackClick} />}
     </div>
   );
 };
