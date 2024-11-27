@@ -14,7 +14,7 @@ const Navigationbar = () => {
       <div className="py-1 border-b-[1px]">
         {/* Contents are passed as children to Container */}
         <Container>
-          <div className="flex items-center justify-between gap-4 text-white w-full" style = {{fontSize:"30px"}}>
+          <div className="flex items-center justify-between gap-4 text-white w-full" style = {{fontSize:"30px", fontWeight: "bold"}}>
             {/* Logo */}
             <Logo />
             <Home />
