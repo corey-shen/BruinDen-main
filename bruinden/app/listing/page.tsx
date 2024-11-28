@@ -1,39 +1,160 @@
+"use client"
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Oswald } from "next/font/google"
 import { Montserrat } from "next/font/google"
 import styles from './page.module.css'
-import ImageCarousel from './components/ImageMarquee';
+import ImageCarousel from './components/ImageCarousel';
+import ContactBox from './components/ContactBox';
+import { FaHeart } from 'react-icons/fa'
 
 const monserrat = Montserrat({subsets:['latin']})
 
-export default function Listing() {
-  const placeholderImages = [
-    "https://picsum.photos/seed/a/1920/1080",
-    "https://picsum.photos/seed/b/1024/576",
-    "https://picsum.photos/seed/c/1024/576",
-    "https://picsum.photos/seed/d/1024/576",
-    // "https://picsum.photos/seed/e/1024/576",
-    // "https://picsum.photos/seed/f/1024/576",
-    // "https://picsum.photos/seed/g/1024/576",
-    // "https://picsum.photos/seed/h/1024/576",
-    // "https://picsum.photos/seed/i/1024/576",
-    // "https://picsum.photos/seed/j/1024/576",
-    // "https://picsum.photos/seed/k/1024/576",
-    // "https://picsum.photos/seed/l/1024/576",
-    // "https://picsum.photos/seed/m/1024/576",
-    // "https://picsum.photos/seed/n/1024/576",
-    // "https://picsum.photos/seed/o/1024/576",
-    // "https://picsum.photos/seed/p/1024/576",
-    // "https://picsum.photos/seed/q/1024/576",
-    // "https://picsum.photos/seed/r/1024/576",
-    // "https://picsum.photos/seed/s/1024/576",
-    // "https://picsum.photos/seed/t/1024/576",
-    // "https://picsum.photos/seed/u/1024/576",
-  ];
+interface ListingProps {
+  id: string;
+  title: string;
+  description: string;
+  imageSrc: string[];
+  createdDate: string;
+  category: string;
+  roomCount: number;
+  bathroomCount: number;
+  address: string;
+  price: number;
+  user: {
+    name: string,
+    email: string,
+    phone: string,
+    picture: string,
+  };
+}
+
+const Listing: React.FC<ListingProps> = ({
+  title,
+  description,
+  imageSrc,
+  category,
+  roomCount,
+  bathroomCount,
+  address,
+  price,
+  createdDate,
+  user,
+}) => {
+
   
+  const [opacity, setOpacity] = useState<number>(1);
+  const [heartFilled, setHeartFilled] = useState(false);
+  const placeholderText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+
+  const handleHeartClick = () => {
+    setHeartFilled(!heartFilled);
+  }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const fadeRate = 0.003;
+      const newOpacity = Math.max(0, 1 - scrollPosition * fadeRate);
+      setOpacity(newOpacity);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-   <div>
-      <ImageCarousel images={placeholderImages} />
-   </div>
+    <>
+      <div>
+          <ImageCarousel images={imageSrc} />
+      </div>
+      <div className="flex gap-6">
+        <div className="flex-1">
+          <div>
+            <div className="flex items-center justify-between">
+              <h1 style={{ fontSize: "50px", marginTop: "20px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight: "bold", textAlign: "left", paddingLeft: "60px"
+                }}>
+                {title}
+              </h1>
+              <button
+                className="ml-4 text-red-500 text-2xl focus:outline-none pr-10"
+                onClick={handleHeartClick}
+              >
+                { heartFilled ? (
+                  <FaHeart className="text-red-500"/>
+                ) : (
+                  <FaHeart className="text-gray-500"/>
+                )}
+              </button>
+            </div>
+            <h2 style={{ fontSize: "20px", marginBottom: "20px", display: "flex", alignItems: "center", textAlign: "left", paddingLeft: "60px"}}>{address}</h2>
+          </div>
+          <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "40px"}} />
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: "10px", 
+              textAlign: "center",
+              marginLeft: "16px",
+              marginRight: "16px",
+            }}
+          >
+            <div>
+              <h2 style={{ fontSize: "20px", marginBottom: "10px", justifyItems: "center", textAlign: "center", alignItems: "center"}}>
+                Monthly Rent
+              </h2>
+              <h2 style={{ fontSize: "20px", marginBottom: "20px", justifyItems: "center", textAlign: "center", alignItems: "center", fontWeight: "bold"}}>
+                ${price}
+              </h2>
+            </div>
+            <div>
+              <h2 style={{ fontSize: "20px", marginBottom: "10px", justifyItems: "center", textAlign: "center", alignItems: "center"}}>
+                Room Type
+              </h2>
+              <h2 style={{ fontSize: "20px", marginBottom: "20px", justifyItems: "center", textAlign: "center", alignItems: "center", fontWeight: "bold"}}>
+                {category}
+              </h2>
+            </div>
+            <div>
+              <h2 style={{ fontSize: "20px", marginBottom: "10px", justifyItems: "center", textAlign: "center", alignItems: "center"}}>
+                Bedrooms
+              </h2>
+              <h2 style={{ fontSize: "20px", marginBottom: "20px", justifyItems: "center", textAlign: "center", alignItems: "center", fontWeight: "bold"}}>
+                {roomCount} bd
+              </h2>
+            </div>
+            <div>
+              <h2 style={{ fontSize: "20px", marginBottom: "10px", justifyItems: "center", textAlign: "center", alignItems: "center"}}>
+                Bathrooms
+              </h2>
+              <h2 style={{ fontSize: "20px", marginBottom: "20px", justifyItems: "center", textAlign: "center", alignItems: "center", fontWeight: "bold"}}>
+                {bathroomCount} ba
+              </h2>
+            </div>
+          </div>
+          <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
+          <p style={{ paddingLeft: "60px", paddingRight: "60px" }}>{description}</p>
+          <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
+          <p style={{ paddingLeft: "60px", paddingRight: "60px" }}>{placeholderText}</p>
+          <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
+          <p style={{ paddingLeft: "60px", paddingRight: "60px" }}>{placeholderText}</p>
+          <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
+          <p style={{ paddingLeft: "60px", paddingRight: "60px" }}>{placeholderText}</p>
+          <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
+          <p style={{ paddingLeft: "60px", paddingRight: "60px" }}>{placeholderText}</p>
+          <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
+          <p style={{ paddingLeft: "60px", paddingRight: "60px" }}>{placeholderText}</p>
+          <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
+          <p style={{ paddingLeft: "60px", paddingRight: "60px" }}>{placeholderText}</p>
+        </div>
+        <div className="w-1/3 pt-8 pr-16 top-[120px]">
+          <ContactBox name={user.name} email={user.email} phone={user.phone} picture={user.picture} />
+        </div>
+      </div>
+    </>
   );
 }
+
+export default Listing;
