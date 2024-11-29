@@ -6,7 +6,7 @@ import ImageCarousel from './components/ImageCarousel';
 import ContactBox from './components/ContactBox';
 import AmenitiesList from './components/AmenitiesList';
 import { FaHeart } from 'react-icons/fa'
-import { GoogleMap, LoadScriptNext, Marker } from '@react-google-maps/api';
+import MapComponent from './components/MapComponent';
 
 const monserrat = Montserrat({subsets:['latin']})
 
@@ -149,17 +149,11 @@ const Listing: React.FC<ListingProps> = ({
             <AmenitiesList items={amenities}/>
           </div>
           <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
-          <div>
-            <LoadScriptNext googleMapsApiKey="API_KEY_HERE">
-              <GoogleMap
-                center={coordinate}
-                zoom={14}
-                mapContainerClassName="w-full h-full"
-                onLoad={(map) => console.log("Map Instance:", map)}
-              >
-                <Marker position={coordinate}/>
-              </GoogleMap>
-            </LoadScriptNext>
+          <div style={{ paddingLeft: "60px", paddingRight: "60px"}}>
+            <h2 style ={{fontSize: "20px", marginBottom: "20px"}}>
+              Location
+            </h2>
+              <MapComponent address={address} lat={lat} long={long} />
           </div>
           <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
           <p style={{ paddingLeft: "60px", paddingRight: "60px" }}>{placeholderText}</p>
