@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import { FaUserAlt, FaRocket } from 'react-icons/fa'; 
+import Image from "next/image";
 
 const About: React.FC = () => {
   const [opacity, setOpacity] = useState<number>(1);
@@ -26,8 +27,17 @@ const About: React.FC = () => {
     "Maddox Yu"
   ];
 
+  const teamImages: { [key: string]: string } = {
+    "Kelsey Shan": "/images/kelsey.png",
+    "Zhanhao Cao": "/images/zhanhao.png",
+    "Richard Chen": "/images/placeholder_avatar.png",
+    "Jayden Truong": "/images/placeholder_avatar.png",
+    "Corey Shen": "/images/corey.png",
+    "Maddox Yu": "/images/placeholder_avatar.png"
+  };
+
   return (
-<div style={{ color: "#2F4858" }}>
+    <div style={{ color: "#2F4858" }}>
       <div 
         style={{ 
           position: "relative", 
@@ -124,8 +134,7 @@ const About: React.FC = () => {
         <p style={{ fontSize: "1.2vw", color: "#2F44858", marginTop: "30px", marginBottom: "20px", textAlign: "center" }}>
           Many students struggle to find affordable housing. They often use platforms like Reddit, Facebook, or Snapchat, which lack sufficient reach, have potential security risks, and are often ineffective. BruinDen aims to make the off-campus housing process easier. Our app features UCLA Login, interactive maps, advanced filtering options, personalized profiles, post-saving, recommendations, and a rating system.
         </p>
-        
-        {/* Meet the Team Section */}
+        {/*
         <h1 style={{ fontSize: "3rem", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight: "bold", justifyContent: "center", textAlign: "center" }}>
           <FaUserAlt/> Meet the Team
         </h1>
@@ -134,7 +143,7 @@ const About: React.FC = () => {
           We are UCLA students dedicated to making housing easier for our peers!
         </p>
 
-        {/* Team Members */}
+        {/* Team Members 
         <div style={{ display: "flex", justifyContent: "space-around", width: "100%", marginTop: "20px" }}>
           {teamMembers.map((member, index) => (
             <div
@@ -147,17 +156,19 @@ const About: React.FC = () => {
                 padding: "20px",
                 boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
                 transition: "transform 0.2s ease-in-out",
+                height: "350px"
               }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
             >
-              <div style={{ width: "100%", height: "250px", backgroundColor: "#FFFFFF", borderRadius: "1vw", marginBottom: "10px" }}>
-                {/* Add Headshot */}
+              <div style={{ width: "100%", height: "250px", position: "relative", backgroundColor: "#FFFFFF", borderRadius: "1vw", marginBottom: "10px" }}>
+                <Image src={teamImages[member]} alt={`${member}'s headshot`} layout="fill" objectFit="cover" style={{ borderRadius: "1vw" }} />
               </div>
               <h4 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{member}</h4>
             </div>
           ))}
         </div>
+        */}
       </div>
     </div>
   );
