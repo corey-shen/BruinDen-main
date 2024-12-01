@@ -119,7 +119,7 @@ const ListingPage: React.FC = () => {
                 )}
               </button>
             </div>
-            <h2 style={{ fontSize: "20px", marginBottom: "20px", display: "flex", alignItems: "center", textAlign: "left", paddingLeft: "60px"}}>{address}</h2>
+            <h2 style={{ fontSize: "20px", marginBottom: "20px", display: "flex", alignItems: "center", textAlign: "left", paddingLeft: "60px"}}>{listing.address}</h2>
           </div>
           <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "40px"}} />
           <div
@@ -166,7 +166,7 @@ const ListingPage: React.FC = () => {
             </div>
           </div>
           <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
-          <p style={{ paddingLeft: "60px", paddingRight: "60px" }}>{description}</p>
+          <p style={{ paddingLeft: "60px", paddingRight: "60px" }}>{listing.description}</p>
           <hr className="ml-10 mr-8" style={{ border: "3px solid #FFBC00", marginBottom: "40px", marginTop: "30px"}} />
           <div style={{ paddingLeft: "60px", paddingRight: "60px"}}>
             <h2 style ={{fontSize: "20px", marginBottom: "20px"}}>
@@ -183,7 +183,7 @@ const ListingPage: React.FC = () => {
           </div>
         </div>
         <div className="w-1/3 pt-8 pr-16">
-          <ContactBox name={listing.user.name} email={listing.user.email} phone={listing.user.phone} picture={user.picture} />
+          <ContactBox name={listing.user.name} email={listing.user.email} phone={listing.user.phone} picture={listing.user.picture} />
         </div>
       </div>
     </>
