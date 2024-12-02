@@ -37,7 +37,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
     };
     try {
       // Call the API route to check if the user exists
-      const response = await axios.get("/api/auth/userAndListing", {
+      const response = await axios.get("/api/auth/getUserByEmail", {
         params: { email: data.email },
       });
 
