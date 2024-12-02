@@ -53,11 +53,15 @@ const HousingListings = () => {
     const fetchListings = async () => {
       try {
         setIsLoading(true);
+        console.log('Fetching listings...'); // Add this log
         const response = await fetch('/api/listings');
+        console.log('Response received:', response); // Add this log
+
         if (!response.ok) {
           throw new Error('Failed to fetch listings');
         }
         const data = await response.json();
+        console.log('Data received:', data); // Add this log
         
         // Add distance calculation
         const listingsWithDistance = data.map((listing: Listing) => ({
