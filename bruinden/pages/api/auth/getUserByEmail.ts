@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getUserByEmail } from "../auth/queryFunction"; // Importing the function to check the email
+import { getUserByEmail } from "./queryFunction"; // from the list of query functions
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { method } = req;
-  const { email } = req.query; // Extract email from query parameters
+  const { email } = req.query;
 
   try {
     if (method === "GET") {
@@ -14,14 +14,12 @@ export default async function handler(
         return res.status(400).json({ message: "Email parameter is required" });
       }
 
-      // Step 2: Call the getUserByEmail function to check if the email exists in the database
       const user = await getUserByEmail(email as string);
-
+      //succesful cases
       if (user) {
         // If user exists, return user data
         return res.status(200).json({ user });
       } else {
-        // If user does not exist, return null or an empty response
         return res.status(200).json({ user: null });
       }
     } else {
@@ -29,6 +27,6 @@ export default async function handler(
     }
   } catch (error) {
     console.error("Error checking user:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "server error" });
   }
 }
