@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback } from "react";
 import { FcGoogle } from "react-icons/fc"; // Google icon
+import { getUserByEmail } from "../api/auth/queryFunction";
 import axios from "axios";
 
 // Define the prop types for the component
@@ -23,7 +24,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
   const handleGoogleSignUp = useCallback(() => {
     // Implement Google sign-up here
   }, []);
-
+  axios.defaults.baseURL = "http://localhost:3000";
   const handleSignUp = useCallback(async () => {
     // Implement sign-up here
     const fullName = firstName + " " + lastName;
@@ -34,18 +35,28 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
       gender: gender,
       collegeYear: collegeYear,
     };
-    axios
-      .post("../pages/signup", data)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
+    try {
+      // Call the API route to check if the user exists
+      const response = await axios.get("/api/auth/userAndListing", {
+        params: { email: data.email },
       });
-  }, [firstName, lastName, email, password, gender, collegeYear]);
+
+      if (response.data.user) {
+        // If user exists, show an alert or handle the error
+        // console.log(response.data);
+        alert("This email is already taken.");
+        return;
+      }
+      // Proceed to sign up
+      await axios.post("/api/auth", data);
+      console.log("User signed up successfully");
+      onBack();
+    } catch (error) {
+      console.error("Error during sign-up:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [firstName, lastName, email, password, gender, collegeYear, onBack]);
 
   const handleImageUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

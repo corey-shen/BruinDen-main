@@ -69,7 +69,7 @@ const UserMenu = () => {
           style={{ backgroundColor: "#2F4858" }}
         >
           <div className="flex flex-col cursor-pointer py-2">
-            {1 > 2 ? (
+            {1 > 2 ? ( //TODO: Check if user exist instead. Need to debug (code commented above)
               <>
                 {/* Render if currentUser is not null */}
                 <MenuItem

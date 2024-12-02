@@ -27,6 +27,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
     if (result?.error) {
       console.error("Login failed:", result.error);
     } else {
+      onBack();
       console.log("Login successful:", result);
     }
   }, [email, password]);
