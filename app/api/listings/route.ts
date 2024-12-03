@@ -31,13 +31,10 @@ export async function GET() {
 
     // Let's check both collections
     const upperCollection = db.collection('Listing');
-    const lowerCollection = db.collection('listings');
-    
+
     const upperCount = await upperCollection.countDocuments();
-    const lowerCount = await lowerCollection.countDocuments();
     
     console.log('Documents in Listing collection:', upperCount);
-    console.log('Documents in listings collection:', lowerCount);
 
     // Use the correct collection (probably 'Listing' since that's what you see in MongoDB)
     const collection = db.collection('Listing');
