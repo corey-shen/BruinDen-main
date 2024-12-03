@@ -1,15 +1,17 @@
-'use client';
-import { AiOutlineMenu } from 'react-icons/ai';
-import Avatar from '../Avatar';
-import { useState, useCallback } from 'react';
-import MenuItem from './MenuItem';
-import LoginPage from '../../auth/LoginPage';
-import SignUpPage from '../../auth/SignUpPage';
+"use client";
+import { AiOutlineMenu } from "react-icons/ai";
+import Avatar from "../Avatar";
+import { useState, useCallback } from "react";
+import MenuItem from "./MenuItem";
+import LoginPage from "../../../pages/auth/LoginPage";
+import SignUpPage from "../../../pages/auth/SignUpPage";
+import { useRouter } from 'next/navigation';
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const router = useRouter();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -30,6 +32,11 @@ const UserMenu = () => {
     setShowSignUp(false);
   }, []);
 
+  const handleCreateListingClick = useCallback(() => {
+    setIsOpen(false);
+    router.push('/create_listing');
+  }, [router]);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
@@ -44,7 +51,10 @@ const UserMenu = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[200px] overflow-hidden right-0 top-12 text-sm" style={{ backgroundColor: '#2F4858' }}>
+        <div
+          className="absolute rounded-xl shadow-md w-[40vw] md:w-[200px] overflow-hidden right-0 top-12 text-sm"
+          style={{ backgroundColor: "#2F4858" }}
+        >
           <div className="flex flex-col cursor-pointer py-2">
             <>
               <MenuItem
@@ -58,20 +68,16 @@ const UserMenu = () => {
                 reference="#"
               />
               <MenuItem
-                onClick={() => {}}
+                onClick={handleCreateListingClick}
                 label="Create a Listing"
-                reference="#"
+                reference="/create_listing"
               />
             </>
           </div>
         </div>
       )}
-      {showLogin && (
-        <LoginPage onBack={handleBackClick} />
-      )}
-      {showSignUp && (
-        <SignUpPage onBack={handleBackClick} />
-      )}
+      {showLogin && <LoginPage onBack={handleBackClick} />}
+      {showSignUp && <SignUpPage onBack={handleBackClick} />}
     </div>
   );
 };
