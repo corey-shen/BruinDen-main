@@ -51,8 +51,8 @@ const MapComponent = ({ listings, onMarkerClick }: MapComponentProps) => {
   }
 
   return (
-    <div className="w-full h-[800px] rounded-2xl overflow-hidden shadow-lg border-2 border-[#89CFF0]/20 bg-blue p-1">
-      <div className="w-full h-full rounded-xl overflow-hidden">
+    <div className="mt-8 w-full h-[600px] rounded-2xl overflow-hidden shadow-lg p-2 bg-gradient-to-r from-[#C5E4F3] to-[#D6EAF8]"> {/* Modified this line */}
+      <div className="w-full h-full rounded-xl overflow-hidden border border-[#89CFF0]/40"> {/* Increased border opacity */}
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           center={defaultCenter}

@@ -54,7 +54,12 @@ const HousingListings = () => {
       try {
         setIsLoading(true);
         console.log('Fetching listings...'); // Add this log
-        const response = await fetch('/api/listings');
+        const response = await fetch('/api/listings', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
         console.log('Response received:', response); // Add this log
 
         if (!response.ok) {
@@ -131,9 +136,10 @@ const HousingListings = () => {
 
         {/* Listings Section */}
         <div className="w-full lg:w-1/2 h-[50vh] lg:h-full overflow-y-auto px-4 lg:px-8 pb-8">
-          <div className="sticky top-0 bg-white py-6 z-10">
+          <div className="sticky top-0 py-8 z-10">
+          <div className="bg-[#A7C7E7] px-4 py-2 rounded-lg">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-[#2F4858]">PLACES FOR YOU</h2>
+                <h2 className="text-2xl font-bold text-[#2F4858]">PLACES FOR YOU</h2>
               <div className="relative">
                 <select
                   value={sortBy}
@@ -150,6 +156,9 @@ const HousingListings = () => {
               </div>
             </div>
           </div>
+          </div>
+
+          <div className="h-[525px] border-2 border-[#89CFF0]/30 rounded-xl bg-white/50 p-2 overflow-y-auto">
 
           <div className="space-y-4 pb-8">
             {sortedListings.map((listing) => (
@@ -191,6 +200,7 @@ const HousingListings = () => {
                 </div>
               </div>
             ))}
+          </div>
           </div>
         </div>
       </div>

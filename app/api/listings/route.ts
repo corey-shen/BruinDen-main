@@ -61,7 +61,6 @@ export async function GET() {
           bedrooms: 2,
           bathrooms: 1
         },
-        // ... [rest of the sample listings remain the same]
         {
           title: 'Budget Friendly Studio',
           address: '432 Midvale Ave',
