@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 
-// SVG Icons as components
 const LocationIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -37,6 +36,7 @@ const CreateListing = () => {
   const [bedrooms, setBedrooms] = useState('');
   const [bathrooms, setBathrooms] = useState('');
   const [sqft, setSqft] = useState('');
+  const [amenities, setAmenities] = useState('');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState<File[]>([]);
 
@@ -46,12 +46,11 @@ const CreateListing = () => {
   };
 
   return (
-    <div className="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
-      <div className="max-w-2xl mx-auto py-8">
-        <h1 className="text-3xl font-bold mb-8 text-center">Create a New Listing</h1>
+    <div className="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4 pt-24">
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-4xl font-bold mb-8">Apartment Listing</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
-            {/* Address */}
             <div className="relative">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Address
@@ -70,7 +69,6 @@ const CreateListing = () => {
               </div>
             </div>
 
-            {/* Bedrooms and Bathrooms */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -108,7 +106,6 @@ const CreateListing = () => {
               </div>
             </div>
 
-            {/* Square Footage */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Square Footage
@@ -127,7 +124,19 @@ const CreateListing = () => {
               </div>
             </div>
 
-            {/* Description */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Amenities
+              </label>
+              <textarea
+                placeholder="List amenities (e.g., Parking, Laundry, Air Conditioning)"
+                value={amenities}
+                onChange={(e) => setAmenities(e.target.value)}
+                rows={3}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Description
@@ -141,7 +150,6 @@ const CreateListing = () => {
               />
             </div>
 
-            {/* Image Upload */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Upload Images
@@ -165,7 +173,7 @@ const CreateListing = () => {
                   <div className="flex text-sm text-gray-600">
                     <label
                       htmlFor="images"
-                      className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                      className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-ring-blue-500"
                     >
                       <span>Upload files</span>
                       <input
@@ -184,10 +192,16 @@ const CreateListing = () => {
             </div>
           </div>
 
-          <div className="flex justify-center">
+          <div className="flex justify-end space-x-4">
+            <button
+              type="button"
+              className="px-6 py-3 bg-gray-200 text-gray-800 font-medium rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
+            >
+              Cancel
+            </button>
             <button
               type="submit"
-              className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
             >
               Create Listing
             </button>
