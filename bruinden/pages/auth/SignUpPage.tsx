@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import { FcGoogle } from "react-icons/fc"; // Google icon
 import { getUserByEmail } from "../api/auth/queryFunction";
 import axios from "axios";
+import { Snackbar } from '@mui/material';
 
 // Define the prop types for the component
 interface SignUpPageProps {
@@ -26,6 +27,19 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
   }, []);
   axios.defaults.baseURL = "http://localhost:3000";
   const handleSignUp = useCallback(async () => {
+    // Implement sign-up here
+    if (!firstName || ! lastName || !email || !password || !gender || !collegeYear || !universityId){
+      setSnackBarText('Please fill out all fields');
+      setOpen(true);
+      return;
+    }
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    if (!regex.test(email)){
+      console.log('here')
+      setSnackBarText('Please enter a valid email address');
+      setOpen(true);
+      return;
+    }
     // Implement sign-up here
     const fullName = firstName + " " + lastName;
     const data = {
