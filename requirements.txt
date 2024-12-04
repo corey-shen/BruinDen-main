@@ -1,0 +1,3 @@
+#next auth
+#bcrypt
+#mongodb
