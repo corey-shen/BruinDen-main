@@ -47,9 +47,11 @@ const CreateListing = () => {
   };
 
   return (
-    <div className="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4 pt-24">
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-4xl font-bold mb-8">Apartment Listing</h1>
+    <div className="mx-auto xl:px-20 md:px-10 sm:px-2 px-4 pt-24 bg-gray-100">
+    <div className="max-w-2xl mt-8 mx-auto">
+      <h1 className="text-4xl font-bold mb-8" style= {{color: "#2F4858"}}>Create an Apartment Listing</h1>
+        <hr style={{ border: "3px solid #33658A", marginBottom: "20px" }} />
+        <div className="space-y-4 bg-white p-6 rounded-lg shadow-md">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
             {/* Previous inputs remain same until amenities... */}
@@ -65,7 +67,7 @@ const CreateListing = () => {
                   type="text"
                   placeholder="Enter property address"
                   value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  onChange={(e) => setAddress(Math.max(0, Number(e.target.value)).toString())}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
@@ -84,7 +86,7 @@ const CreateListing = () => {
                     type="number"
                     placeholder="Number of bedrooms"
                     value={bedrooms}
-                    onChange={(e) => setBedrooms(e.target.value)}
+                    onChange={(e) => setBedrooms(Math.max(0, Number(e.target.value)).toString())}
                     className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
@@ -101,7 +103,7 @@ const CreateListing = () => {
                     type="number"
                     placeholder="Number of bathrooms"
                     value={bathrooms}
-                    onChange={(e) => setBathrooms(e.target.value)}
+                    onChange={(e) => setBathrooms(Math.max(0, Number(e.target.value)).toString())}
                     className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
@@ -120,7 +122,7 @@ const CreateListing = () => {
                   type="number"
                   placeholder="Square footage"
                   value={sqft}
-                  onChange={(e) => setSqft(e.target.value)}
+                  onChange={(e) => setSqft(Math.max(0, Number(e.target.value)).toString())}
                   className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
@@ -134,7 +136,7 @@ const CreateListing = () => {
               <textarea
                 placeholder="List amenities (e.g., Parking, Laundry, Air Conditioning)"
                 value={amenities}
-                onChange={(e) => setAmenities(e.target.value)}
+                onChange={(e) => setAmenities(Math.max(0, Number(e.target.value)).toString())}
                 rows={3}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
@@ -147,7 +149,7 @@ const CreateListing = () => {
               <textarea
                 placeholder="Describe your property"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => setDescription(Math.max(0, Number(e.target.value)).toString())}
                 rows={4}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
@@ -204,12 +206,13 @@ const CreateListing = () => {
             </button>
             <button
               type="submit"
-              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              className="px-6 py-3 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors bg-[#86bbd8] hover:bg-[#86bbd8]"
             >
               Create Listing
             </button>
           </div>
         </form>
+        </div>
       </div>
     </div>
   );
