@@ -21,6 +21,8 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
   const [password, setPassword] = useState("");
   const [idError, setIdError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [snackBarText, setSnackBarText] = useState('');
 
   const handleGoogleSignUp = useCallback(() => {
     // Implement Google sign-up here
@@ -207,6 +209,12 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
           >
             Sign Up
           </button>
+          <Snackbar
+              open={open}
+              autoHideDuration={2000}
+              onClose={() => setOpen(false)}
+              message={snackBarText}
+          />
         </div>
       </div>
     </div>
