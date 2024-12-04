@@ -6,19 +6,19 @@ import MenuItem from "./MenuItem";
 import LoginPage from "../../../pages/auth/LoginPage";
 import SignUpPage from "../../../pages/auth/SignUpPage";
 
-import { User } from "@prisma/client";
-import getCurrentUser from "@/app/action/getCurrUser";
+//import { User } from "@prisma/client";
+//import getCurrentUser from "@/app/action/getCurrUser";
 // interface curUser {
 //   currentUser?: User | null;
 // }
 
 const UserMenu = () => {
-  // const [currentUser, setCurrentUser] = useState<User | null>(null);
+  //const [currentUser, setCurrentUser] = useState<User | null>(null);
   // useEffect(() => {
   //   const fetchCurrentUser = async () => {
   //     try {
   //       const user = await getCurrentUser();
-  //       setCurrentUser(user);
+  //      // setCurrentUser(user);
   //     } catch (error) {
   //       console.error("Error fetching current user", error);
   //     }
@@ -69,9 +69,9 @@ const UserMenu = () => {
           style={{ backgroundColor: "#2F4858" }}
         >
           <div className="flex flex-col cursor-pointer py-2">
-            {1 > 2 ? ( //TODO: Check if user exist instead. Need to debug (code commented above)
+            {3 > 2 ? ( //TODO: Check if user exist instead. Need to debug (code commented above)
               <>
-                {/* Render if currentUser is not null */}
+                {/*fetch Render if currentUser is not null */}
                 <MenuItem
                   onClick={() => {}}
                   label="Create a Listing"
