@@ -3,9 +3,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Installation
 
 Clone the git repo using:
-'''
-git clone https://github.com/LaziestCactus/BruinDen.git
-'''
+
+'''git clone https://github.com/LaziestCactus/BruinDen.git'''
+
 
 ## Database Set Up
 Use the .env in our Code Repo Document to view the apartment listings and posts we've added
