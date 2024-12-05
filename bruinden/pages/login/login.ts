@@ -28,7 +28,7 @@
 //         onClick={() => signIn("google")}
 //         className="google-login-button"
 //       >
-//         <FcGoogle size={24} />
+//         <FcGoogle snize={24} />
 //         Sign In with Google
 //       </button>
 

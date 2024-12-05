@@ -118,7 +118,7 @@ const HousingListings = () => {
   }
 
   return (
-    <main className="pt-24">
+    <main className="pt-24" style = {{zIndex: "1"}}>
       <div className="flex flex-col lg:flex-row h-[calc(100vh-5rem)]">
         {/* Map Section */}
         <div className="w-full lg:w-1/2 h-[50vh] lg:h-full lg:sticky lg:top-20">
@@ -137,14 +137,14 @@ const HousingListings = () => {
         {/* Listings Section */}
         <div className="w-full lg:w-1/2 h-[50vh] lg:h-full overflow-y-auto px-4 lg:px-8 pb-8">
           <div className="sticky top-0 py-8 z-10">
-          <div className="bg-[#A7C7E7] px-4 py-2 rounded-lg">
+          <div className="bg-[#F6AE2D] px-4 py-2 rounded-lg">
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-[#2F4858]">PLACES FOR YOU</h2>
+                <h2 className="text-2xl font-bold text-[#FFFFFF]">PLACES FOR YOU</h2>
               <div className="relative">
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-[#2F4858]"
+                  className="appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-[#F6AE2D]"
                 >
                   {SORT_OPTIONS.map(option => (
                     <option key={option.value} value={option.value}>
@@ -158,7 +158,7 @@ const HousingListings = () => {
           </div>
           </div>
 
-          <div className="h-[525px] border-2 border-[#89CFF0]/30 rounded-xl bg-white/50 p-2 overflow-y-auto">
+          <div className="h-[525px] border-4 border-[#F6AE2D] rounded-xl bg-white/50 p-2 overflow-y-auto">
 
           <div className="space-y-4 pb-8">
             {sortedListings.map((listing) => (
