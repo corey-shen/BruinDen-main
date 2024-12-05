@@ -5,6 +5,8 @@ import { useState, useEffect, useCallback } from "react";
 import MenuItem from "./MenuItem";
 import LoginPage from "../../../pages/auth/LoginPage";
 import SignUpPage from "../../../pages/auth/SignUpPage";
+import { useRouter } from 'next/navigation';
+
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 //import getCurrentUser from "@/app/action/getCurrUser";
@@ -43,6 +45,7 @@ const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const router = useRouter();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -62,6 +65,11 @@ const UserMenu = () => {
     setShowLogin(false);
     setShowSignUp(false);
   }, []);
+
+  const handleCreateListingClick = useCallback(() => {
+    setIsOpen(false);
+    router.push('/create_listing');
+  }, [router]);
 
   return (
     <div className="relative">
@@ -88,9 +96,9 @@ const UserMenu = () => {
                 <MenuItem
                   onClick={() => {}}
                   label="Create a Listing"
-                  reference="#"
+                  reference="/create_listing"
                 />
-                <MenuItem onClick={() => {}} label="Profile" reference="#" />
+                <MenuItem onClick={() => {}} label="Profile" reference="/profile" />
                 <MenuItem onClick={() => {}} label="Favorites" reference="/favorites" />
                 <MenuItem onClick={() => {}} label="Log Out" reference="#" />
               </>
