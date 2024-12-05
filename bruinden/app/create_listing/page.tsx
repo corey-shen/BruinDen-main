@@ -134,7 +134,7 @@ const CreateListing = () => {
                 Price (per month)
               </label>
               <div className="flex items-center">
-                <span className="absolute left-3 text-gray-400">$</span>
+                <span className="absolute text-gray-400">$</span>
                 <input
                   type="number"
                   placeholder="Monthly rent"

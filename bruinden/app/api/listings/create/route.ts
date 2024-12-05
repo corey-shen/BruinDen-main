@@ -10,12 +10,8 @@ export async function POST(request: Request) {
     console.log('MongoDB connected');
 
     const db = client.db("test");
+    const collection = db.collection("Listing");
     
-    // Log the collection and databases
-    const collections = await db.listCollections().toArray();
-    console.log('Available collections:', collections.map(c => c.name));
-
-    // Format the data for MongoDB
     const listingData = {
       title: "Apartment Listing",
       address: data.address,
@@ -25,26 +21,22 @@ export async function POST(request: Request) {
       squareFeet: Number(data.squareFeet),
       amenities: data.amenities,
       description: data.description,
-      imageUrl: "/api/placeholder/800/600",
       createdAt: new Date()
     };
-    console.log('Formatted listing data:', listingData);
 
-    const result = await db.collection("Listing").insertOne(listingData);
-    console.log('MongoDB insert result:', result);
+    console.log('Attempting to insert:', listingData);
+    const result = await collection.insertOne(listingData);
+    console.log('Insert result:', result);
 
     return NextResponse.json({
       success: true,
       _id: result.insertedId.toString()
     });
 
-  } catch (error: any) { 
-    console.error('API Error:', error?.message || 'Unknown error');
+  } catch (error: any) {
+    console.error('API Error:', error);
     return NextResponse.json(
-      { 
-        error: 'Failed to create listing', 
-        details: error?.message || 'Unknown error'
-      },
+      { error: 'Failed to create listing', details: error.message },
       { status: 500 }
     );
   }
