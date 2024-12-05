@@ -47,10 +47,10 @@ const CreateListing = () => {
   };
 
   return (
-    <div className="mx-auto xl:px-20 md:px-10 sm:px-2 px-4 pt-24 bg-gray-100">
-    <div className="max-w-2xl mt-8 mx-auto">
-      <h1 className="text-4xl font-bold mb-8" style= {{color: "#2F4858"}}>Create an Apartment Listing</h1>
-        <hr style={{ border: "3px solid #33658A", marginBottom: "20px" }} />
+    <div className="w-full p-6 bg-gray-100">
+    <div className="w-full mt-8 mx-auto">
+    <h1 style={{ fontSize: "50px", marginTop: "100px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight: "bold", justifyContent: "center", textAlign: "center", color: "#2F4858"}}>Create an Apartment Listing</h1>
+    <hr style={{ border: "3px solid #2F4858", marginBottom: "20px" }} />
         <div className="space-y-4 bg-white p-6 rounded-lg shadow-md">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
