@@ -1,12 +1,18 @@
+import ListingsMapComponent from '../components/ListingsMapComponent';
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { Heart, ChevronDown } from 'lucide-react';
-import MapComponent from '../components/housing/MapComponent';
+import MapComponent from '../listing/components/MapComponent';
 
 interface Location {
   lat: number;
   lng: number;
+}
+
+interface MapComponentProps {
+  listings: Listing[];
+  onMarkerClick: (id: string) => void;
 }
 
 interface Listing {
@@ -113,16 +119,11 @@ const HousingListings = () => {
       <div className="flex flex-col lg:flex-row h-[calc(100vh-5rem)]">
         {/* Map Section */}
         <div className="w-full lg:w-1/2 h-[50vh] lg:h-full lg:sticky lg:top-20">
-          <MapComponent 
-            listings={sortedListings}
-            onMarkerClick={(id) => {
-              setSelectedListing(id);
-              const element = document.getElementById(`listing-${id}`);
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }
-            }}
-          />
+        <MapComponent 
+          address={sortedListings[0]?.address || ''} // Provide required props from MapProps
+          lat={sortedListings[0]?.location.lat || 34.0689} // Default to UCLA if no listings
+          long={sortedListings[0]?.location.lng || -118.4452}
+        />
         </div>
 
         {/* Listings Section */}

@@ -153,10 +153,18 @@ async function deleteListing(id: string) {
   }
 }
 
-async function getListingByFilter(listing_name?: string, date_posted?: Date, bedroom_count?: number, bathroom_count?: number, price_lower?: number, price_upper?: number) { // Update to take in a map of values instead
+async function getListingByFilter(
+  listing_name?: string,
+  address?: string,
+  date_posted?: Date,
+  bedroom_count?: number,
+  bathroom_count?: number,
+  price_lower?: number,
+  price_upper?: number) { // Update to take in a map of values instead
   return await prisma.Listing.findMany({
       where: {
           ...(listing_name && { title: { contains: listing_name, mode: 'insensitive', },}),
+          ...(address && { address: { contains: address, mode: 'insensitive' }}),
           ...(date_posted && { createdAt: { equals: date_posted },}), // most likely change this for better use cases
           ...(bedroom_count && { roomCount: bedroom_count }),
           ...(bathroom_count && { bathroomCount: bathroom_count }),
@@ -169,6 +177,7 @@ async function getListingByFilter(listing_name?: string, date_posted?: Date, bed
               }
               : {}),
       },
+      take: 5, // limit result to 5
   });
 }
 

@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Location {
+type Location {    // Changed from model to type
   lat Int
   lng Int
 }
@@ -55,9 +55,7 @@ model Listing {
   bedroomCount Int
   bathroomCount Int
   price Int
-  location Location
+  location Location // This will now work because Location is a type
   userID String @db.ObjectId
   user User @relation(fields: [userID], references: [id], onDelete: Cascade)
 }
-
-//downgrade react
