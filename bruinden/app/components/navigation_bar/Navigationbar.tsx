@@ -9,7 +9,7 @@ import { Suspense } from "react";
 
 const Navigationbar = () => {
   return (
-    <div className="fixed w-full z-10 shadow-xl" style={{ backgroundColor: '#33658A' }}>
+    <div className="fixed w-full shadow-xl" style={{ backgroundColor: '#33658A' , zIndex: "1000"}}>
       <div className="py-1 border-b-[1px]">
         {/* Contents are passed as children to Container */}
         <Container>

@@ -118,7 +118,7 @@ const HousingListings = () => {
   }
 
   return (
-    <main className="pt-24">
+    <main className="pt-24" style = {{zIndex: "1"}}>
       <div className="flex flex-col lg:flex-row h-[calc(100vh-5rem)]">
         {/* Map Section */}
         <div className="w-full lg:w-1/2 h-[50vh] lg:h-full lg:sticky lg:top-20">
