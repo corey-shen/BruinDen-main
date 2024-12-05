@@ -1,4 +1,4 @@
-import { prisma } from "@/server/prisma/libs/prismadb";
+import prisma from "@/server/prisma/libs/prismadb";
 import bcrypt from "bcrypt";
 import NextAuth, { AuthOptions, User as NextAuthUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";

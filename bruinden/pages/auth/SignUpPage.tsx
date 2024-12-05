@@ -1,25 +1,22 @@
-"use client";
-import { useState, useCallback } from "react";
-import { FcGoogle } from "react-icons/fc"; // Google icon
-import { getUserByEmail } from "../api/auth/queryFunction";
-import axios from "axios";
+'use client';
+import { useState, useCallback } from 'react';
+import axios from 'axios';
 import { Snackbar } from '@mui/material';
 
-// Define the prop types for the component
 interface SignUpPageProps {
   onBack: () => void;
 }
 
 const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [universityId, setUniversityId] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [universityId, setUniversityId] = useState('');
   const [profileImage, setProfileImage] = useState<File | null>(null);
-  const [collegeYear, setCollegeYear] = useState("");
-  const [gender, setGender] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [idError, setIdError] = useState("");
+  const [collegeYear, setCollegeYear] = useState('');
+  const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [idError, setIdError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [snackBarText, setSnackBarText] = useState('');
@@ -42,77 +39,43 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
       setOpen(true);
       return;
     }
-    // Implement sign-up here
     const fullName = firstName + " " + lastName;
-    const data = {
-      name: fullName,
-      email: email,
-      password: password,
-      gender: gender,
-      collegeYear: collegeYear,
-    };
-    try {
-      // Call the API route to check if the user exists
-      const response = await axios.get("/api/auth/getUserByEmail", {
-        params: { email: data.email },
-      });
+    const data = {'name': fullName, 'email': email, 'password': password, 'gender': gender, 'collegeYear': collegeYear}
+    axios.post('../pages/signup', data)
+      .then(function (response) {
+        setIsLoading(true);
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        onBack()
+      })
 
-      if (response.data.user) {
-        // If user exists, show an alert or handle the error
-        // console.log(response.data);
-        alert("This email is already taken.");
-        return;
-      }
-      // Proceed to sign up
-      await axios.post("/api/auth", data);
-      console.log("User signed up successfully");
-      onBack();
-    } catch (error) {
-      console.error("Error during sign-up:", error);
-    } finally {
-      setIsLoading(false);
+  }, [firstName, lastName, email, password, gender, collegeYear]);
+
+  const handleImageUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setProfileImage(event.target.files[0]);
     }
-  }, [firstName, lastName, email, password, gender, collegeYear, onBack]);
+  }, []);
 
-  const handleImageUpload = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (event.target.files) {
-        setProfileImage(event.target.files[0]);
-      }
-    },
-    []
-  );
-
-  const handleUniversityIdChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = event.target.value;
-      if (/^\d*$/.test(value)) {
-        setUniversityId(value);
-        setIdError("");
-      } else {
-        setIdError("University ID must be a number");
-      }
-    },
-    []
-  );
+  const handleUniversityIdChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) {
+      setUniversityId(value);
+      setIdError('');
+    } else {
+      setIdError('University ID must be a number');
+    }
+  }, []);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
-      <div
-        className="bg-white p-8 rounded-lg shadow-lg w-[90vw] md:w-[600px]"
-        style={{ color: "#2F4858" }}
-      >
-        <h2 className="text-2xl font-bold mb-4">Sign Up with Google:</h2>
-        <button
-          onClick={handleGoogleSignUp}
-          className="w-full mb-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#86bbd8] hover:bg-[#86bbd8] flex items-center justify-center"
-        >
-          <FcGoogle size={24} />
-          Sign Up
-        </button>
-        <h3 className="text-2xl font-bold mt-8 mb-4 text-left">
-          Sign Up with an Email:
-        </h3>
+      <div className="bg-white p-8 rounded-lg shadow-lg w-[90vw] md:w-[600px]" style={{ color: '#2F4858' }}>
+        <h1 className="text-2xl font-bold mb-4 text-left">Sign Up with an Email:</h1>
         <div className="flex gap-2 mb-2">
           <input
             type="text"
@@ -120,7 +83,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             className="w-1/2 py-2 px-4 border border-gray-300 rounded-md text-sm"
-            style={{ color: "#2F4858", fontSize: "0.875rem" }}
+            style={{ color: '#2F4858', fontSize: '0.875rem' }}
           />
           <input
             type="text"
@@ -128,7 +91,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             className="w-1/2 py-2 px-4 border border-gray-300 rounded-md text-sm"
-            style={{ color: "#2F4858", fontSize: "0.875rem" }}
+            style={{ color: '#2F4858', fontSize: '0.875rem' }}
           />
         </div>
         <input
@@ -137,7 +100,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full mb-2 py-2 px-4 border border-gray-300 rounded-md text-sm"
-          style={{ color: "#2F4858", fontSize: "0.875rem" }}
+          style={{ color: '#2F4858', fontSize: '0.875rem' }}
         />
         <input
           type="password"
@@ -145,7 +108,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full mb-2 py-2 px-4 border border-gray-300 rounded-md text-sm"
-          style={{ color: "#2F4858", fontSize: "0.875rem" }}
+          style={{ color: '#2F4858', fontSize: '0.875rem' }}
         />
         <input
           type="text"
@@ -153,7 +116,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
           value={universityId}
           onChange={handleUniversityIdChange}
           className="w-full mb-2 py-2 px-4 border border-gray-300 rounded-md text-sm"
-          style={{ color: "#2F4858", fontSize: "0.875rem" }}
+          style={{ color: '#2F4858', fontSize: '0.875rem' }}
         />
         {idError && <p className="text-red-500 text-sm mb-2">{idError}</p>}
         <label className="w-full mb-2 py-2 px-4 border text-white border-gray-300 rounded-md text-sm flex items-center justify-center cursor-pointer bg-gray-300 text-black hover:bg-gray-400">
@@ -169,11 +132,9 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
           value={collegeYear}
           onChange={(e) => setCollegeYear(e.target.value)}
           className="w-full mb-2 py-2 px-4 border border-gray-300 rounded-md text-sm"
-          style={{ color: "#2F4858", fontSize: "0.875rem" }}
+          style={{ color: '#2F4858', fontSize: '0.875rem' }}
         >
-          <option value="" disabled>
-            Select College Year
-          </option>
+          <option value="" disabled>Select College Year</option>
           <option value="Freshman">Freshman</option>
           <option value="Sophomore">Sophomore</option>
           <option value="Junior">Junior</option>
@@ -185,11 +146,9 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
           value={gender}
           onChange={(e) => setGender(e.target.value)}
           className="w-full mb-4 py-2 px-4 border border-gray-300 rounded-md text-sm"
-          style={{ color: "#2F4858", fontSize: "0.875rem" }}
+          style={{ color: '#2F4858', fontSize: '0.875rem' }}
         >
-          <option value="" disabled>
-            Select Gender
-          </option>
+          <option value="" disabled>Select Gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
           <option value="Non-binary">Non-binary</option>
