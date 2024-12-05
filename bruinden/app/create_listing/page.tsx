@@ -67,7 +67,7 @@ const CreateListing = () => {
                   type="text"
                   placeholder="Enter property address"
                   value={address}
-                  onChange={(e) => setAddress(Math.max(0, Number(e.target.value)).toString())}
+                  onChange={(e) => setAddress(e.target.value)}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
