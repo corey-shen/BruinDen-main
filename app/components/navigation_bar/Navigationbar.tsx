@@ -5,7 +5,6 @@ import Search from "./Search";
 import Home from "./Home";
 import About from "./About";
 import Meet_People from './Meet_People';
-import { Suspense } from "react";
 
 const Navigationbar = () => {
   return (
@@ -13,7 +12,7 @@ const Navigationbar = () => {
       <div className="py-1 border-b-[1px]">
         {/* Contents are passed as children to Container */}
         <Container>
-          <div className="flex items-center justify-between gap-4 text-white w-full" style = {{fontSize:"30px", fontWeight: "bold"}}>
+          <div className="flex items-center justify-between gap-4 text-white w-full" style = {{fontSize:"30px"}}>
             {/* Logo */}
             <Logo />
             <Home />
@@ -28,8 +27,6 @@ const Navigationbar = () => {
           </div>
         </Container>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
-      </Suspense>
     </div>
   );
 };
