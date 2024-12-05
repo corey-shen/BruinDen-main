@@ -54,7 +54,8 @@ const FavoriteListings = () => {
       try {
         setIsLoading(true);
         console.log('Fetching listings...'); // Add this log
-        const response = await fetch('/api/favorite_listings', {
+        const userID = '674dfc9ea1b4e731a0e8b9f2'
+        const response = await fetch(`/api/favorite_listings?userId=${userID}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -89,6 +90,30 @@ const FavoriteListings = () => {
 
     fetchListings();
   }, []);
+
+  const handleLike = async (listingId: string) => {
+    setIsLoading(true); // Set loading to true when the button is pressed
+    console.log(listingId);
+    const userId = '674dfc9ea1b4e731a0e8b9f2'
+    try {
+      const response = await fetch("/api/auth/addLike", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId,
+          listingId
+        }),
+      });
+      const result = await response.json(); // Assuming the response is in JSON format
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      alert('Error fetching data');
+    } finally {
+      setIsLoading(false); // Set loading to false when the request completes
+    }
+  };
 
   const sortedListings = useMemo(() => {
     return [...listings].sort((a, b) => {
@@ -191,6 +216,7 @@ const FavoriteListings = () => {
                       <button 
                         className="p-2 rounded-full hover:bg-gray-100 transition-colors"
                         aria-label="Save to favorites"
+                        onClick={() => handleLike(listing._id)}
                       >
                         <Heart className="w-5 h-5" />
                       </button>

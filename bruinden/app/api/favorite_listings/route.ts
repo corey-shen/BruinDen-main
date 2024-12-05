@@ -1,8 +1,8 @@
-// app/api/listings/route.ts
 import { NextResponse } from 'next/server';
-import clientPromise from '../../../lib/mongodb'
+import clientPromise from '../../../lib/mongodb';
 import { ObjectId } from 'mongodb';
 
+// Define the Listing interface
 interface Listing {
   _id: string;
   title: string;
@@ -18,76 +18,64 @@ interface Listing {
   bathrooms: number;
 }
 
-export async function GET() {
+// API Route to get favorited listings
+export async function GET(request: Request) {
+  const userId = new URL(request.url).searchParams.get('userId');
+
+  if (!userId) {
+    return NextResponse.json(
+      { error: 'User ID is required' },
+      { status: 400 }
+    );
+  }
+
   try {
     const client = await clientPromise;
+    const db = client.db('test');
+
     console.log('Connected to MongoDB');
 
-    const db = client.db("test");
-    
-    // Log all collections
+    // Log collections
     const collections = await db.listCollections().toArray();
     console.log('Available collections:', collections.map(c => c.name));
+    const decodedUserId = decodeURIComponent(userId);
 
-    // Let's check both collections
-    const upperCollection = db.collection('Listing');
+    // Fetch favorites for the user
+    // return NextResponse.json(decodedUserId);
+    const favoritesCollection = db.collection('Favorite');
+    const favoriteListings = await favoritesCollection
+      .find({ userId: new ObjectId(decodedUserId) })
+      .toArray();
 
-    const upperCount = await upperCollection.countDocuments();
-    
-    console.log('Documents in Listing collection:', upperCount);
+    console.log('Favorite Listings IDs:', favoriteListings);
+    // Extract listing IDs from the favorite documents
+    const listingIds = favoriteListings.map(favorite => favorite.listingId);
+    // return NextResponse.json(listingIds);
 
-    // Use the correct collection (probably 'Listing' since that's what you see in MongoDB)
-    const collection = db.collection('Listing');
-    
-    let listings = await collection.find({}).toArray();
-    console.log('Listings from Listing collection:', listings);
-
-    // If no listings exist, insert sample data
-    if (listings.length === 0) {
-      const sampleListings = [
-        {
-          title: 'Modern Apartment near UCLA',
-          address: '123 Westwood Blvd',
-          price: 2500,
-          imageUrl: '/api/placeholder/800/600',
-          location: {
-            lat: 34.0689,
-            lng: -118.4452
-          },
-          squareFeet: 800,
-          bedrooms: 2,
-          bathrooms: 1
-        },
-        {
-          title: 'Budget Friendly Studio',
-          address: '432 Midvale Ave',
-          price: 1500,
-          imageUrl: '/api/placeholder/800/600',
-          location: {
-            lat: 34.0670,
-            lng: -118.4530
-          },
-          squareFeet: 400,
-          bedrooms: 0,
-          bathrooms: 1
-        }
-      ];
-
-      await collection.insertMany(sampleListings);
-      console.log('Inserted sample listings:', sampleListings);
-      listings = await collection.find().toArray();
+    if (listingIds.length === 0) {
+      return NextResponse.json([]);
     }
 
+    // Fetch details of the favorited listings
+    const listingsCollection = db.collection('Listing');
+    const listings = await listingsCollection
+      .find({ _id: { $in: listingIds.map(id => new ObjectId(id)) } })
+      .toArray();
+
+    console.log('Fetched Listings:', listings);
+
+    // Format the listings to return clean data
     const formattedListings = listings.map(listing => ({
       ...listing,
-      _id: listing._id.toString()
+      _id: listing._id.toString(),
     }));
+
     return NextResponse.json(formattedListings);
-    
+
   } catch (error) {
     console.error('Detailed error:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch listings' },
+      { error: 'Failed to fetch favorited listings' },
       { status: 500 }
     );
   }
