@@ -3,10 +3,18 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Heart, ChevronDown } from 'lucide-react';
 import MapComponent from './MapComponent';
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
 
 interface Location {
   lat: number;
   lng: number;
+}
+
+interface User {
+  id: string;
+  email: string;
+  token?: string;
 }
 
 interface Listing {
@@ -48,13 +56,40 @@ const FavoriteListings = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedListing, setSelectedListing] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<string>('distance');
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  const fetchUserFromToken = () => {
+    const token = Cookies.get("auth_token");
+    console.log("token: ", token);
+    if (token) {
+      try {
+        const decodedToken = jwt.decode(token) as User;
+        console.log("decoded token: ", decodedToken);
+        setCurrentUser(decodedToken);
+        return decodedToken;
+      } catch (error) {
+        console.log("Failed to decode token", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    
+
+    fetchUserFromToken();
+  }, []);
 
   useEffect(() => {
     const fetchListings = async () => {
       try {
         setIsLoading(true);
         console.log('Fetching listings...'); // Add this log
-        const userID = '674dfc9ea1b4e731a0e8b9f2'
+        const userID = fetchUserFromToken()?.id;
+        console.log(userID);
+        if (!userID) {
+          throw new Error('Login first to see listings');
+        }
+        console.log(userID);
         const response = await fetch(`/api/favorite_listings?userId=${userID}`, {
           method: 'GET',
           headers: {
