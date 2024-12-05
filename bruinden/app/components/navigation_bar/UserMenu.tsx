@@ -91,6 +91,7 @@ const UserMenu = () => {
                   reference="#"
                 />
                 <MenuItem onClick={() => {}} label="Profile" reference="#" />
+                <MenuItem onClick={() => {}} label="Favorites" reference="/favorites" />
                 <MenuItem onClick={() => {}} label="Log Out" reference="#" />
               </>
             ) : (
