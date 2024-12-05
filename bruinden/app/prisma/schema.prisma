@@ -52,7 +52,7 @@ model Listing {
   amenities String[]
   createdDate DateTime @default(now())
   category String
-  bedroomCount Int
+  bedroomCount Intl
   bathroomCount Int
   price Int
   location Location

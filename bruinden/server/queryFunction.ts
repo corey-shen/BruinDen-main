@@ -171,3 +171,16 @@ async function getListingByFilter(listing_name?: string, date_posted?: Date, bed
       },
   });
 }
+
+export {
+  createUser,
+  deleteUser,
+  getUserByEmail,
+  getUserByID,
+  updateUser,
+  createAccount,
+  createListing,
+  updateListing,
+  deleteListing,
+  getListingByFilter
+};

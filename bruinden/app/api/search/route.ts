@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import clientPromise from '../../../lib/mongodb';
-//import clientPromise from '@/lib/mongodb';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('q');
+    console.log('Search query:', query);
 
     if (!query) {
       return NextResponse.json([]);
@@ -15,23 +15,18 @@ export async function GET(request: Request) {
     const db = client.db("test");
 
     const listings = await db.collection("Listing").find({
-      // Search with case-insensitive regex
-      address: {
-        $regex: query,
-        $options: 'i'
+      address: { 
+        $regex: query, 
+        $options: 'i' 
       }
-    })
-    .limit(10)
-    .toArray();
+    }).toArray();
 
     console.log('Found listings:', listings);
+
     return NextResponse.json(listings);
 
-  } catch (error: any) {
-    console.error('Search failed:', error);
-    return NextResponse.json(
-      { error: 'Failed to search listings' },
-      { status: 500 }
-    );
+  } catch (error) {
+    console.error('Search error:', error);
+    return NextResponse.json({ error: 'Search failed' }, { status: 500 });
   }
 }
