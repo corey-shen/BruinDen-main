@@ -2,7 +2,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { FcGoogle } from "react-icons/fc"; // Google icon
 import axios from "axios";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
+import Cookies from 'js-cookie';
 
 // Define the prop types for the component
 interface LoginPageProps {
@@ -12,7 +13,7 @@ interface LoginPageProps {
 const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const handleGoogleLogin = useCallback(() => {
     // Implement Google login here
   }, []);
@@ -27,7 +28,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
     if (result?.error) {
       console.error("Login failed:", result.error);
     } else {
+      const session = await getSession();
+      const token = session?.user?.token;
+      Cookies.set("auth_token", token as string, { expires: 2 / 24 });
       onBack();
+      console.log("JWT TOKEN:", token);
       console.log("Login successful:", result);
     }
   }, [email, password]);

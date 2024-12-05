@@ -5,27 +5,40 @@ import { useState, useEffect, useCallback } from "react";
 import MenuItem from "./MenuItem";
 import LoginPage from "../../../pages/auth/LoginPage";
 import SignUpPage from "../../../pages/auth/SignUpPage";
-
-//import { User } from "@prisma/client";
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
 //import getCurrentUser from "@/app/action/getCurrUser";
 // interface curUser {
 //   currentUser?: User | null;
 // }
 
-const UserMenu = () => {
-  //const [currentUser, setCurrentUser] = useState<User | null>(null);
-  // useEffect(() => {
-  //   const fetchCurrentUser = async () => {
-  //     try {
-  //       const user = await getCurrentUser();
-  //      // setCurrentUser(user);
-  //     } catch (error) {
-  //       console.error("Error fetching current user", error);
-  //     }
-  //   };
+interface User {
+  id: string;
+  email: string;
+  token?: string;
+}
 
-  //   fetchCurrentUser();
-  // }, []);
+const UserMenu = () => {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUserFromToken = () => {
+      const token = Cookies.get("auth_token");
+      console.log("token: ", token);
+      if (token) {
+        try {
+          const decodedToken = jwt.decode(token) as User;
+          console.log("decoded token: ", decodedToken);
+          setCurrentUser(decodedToken);
+        } catch (error) {
+          console.log("Failed to decode token", error);
+        }
+      }
+    };
+
+    fetchUserFromToken();
+  }, []);
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -69,7 +82,7 @@ const UserMenu = () => {
           style={{ backgroundColor: "#2F4858" }}
         >
           <div className="flex flex-col cursor-pointer py-2">
-            {3 > 2 ? ( //TODO: Check if user exist instead. Need to debug (code commented above)
+            {currentUser ? ( //TODO: Check if user exist instead. Need to debug (code commented above)
               <>
                 {/*fetch Render if currentUser is not null */}
                 <MenuItem
