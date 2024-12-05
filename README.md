@@ -1,9 +1,18 @@
-<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Installation
 
-First, run the development server:
+Clone the git repo using:
+'''
+git clone https://github.com/LaziestCactus/BruinDen.git
+'''
+
+## Database Set Up
+Use the .env in our Code Repo Document to view the apartment listings and posts we've added
+
+## Running the Project
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -16,8 +25,6 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
@@ -48,4 +55,3 @@ Map Integration: Google Maps API for real-time mapping of apartment locations
 User Authentication: UCLA Single Sign-On (SSO) system to ensure only verified UCLA students can access the platform
 ## Project Proposal:
 https://docs.google.com/document/d/1Gxc4xvDvL-ncSKKCWR_ej-Vv0OBaiP21iwYS9AsvrZs/edit?usp=sharing 
->>>>>>> main
