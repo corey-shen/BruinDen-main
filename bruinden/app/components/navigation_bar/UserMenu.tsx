@@ -71,6 +71,9 @@ const UserMenu = () => {
     router.push('/create_listing');
   }, [router]);
 
+  const handleLogOut = useCallback(() => {
+    setCurrentUser(null);
+  }, [] );
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
@@ -96,7 +99,7 @@ const UserMenu = () => {
                 <MenuItem onClick={() => {}} label="Profile" reference="/profile" />
                 <MenuItem onClick={() => {}} label="Favorites" reference="/favorites" />
                 <MenuItem onClick={() => {}} label="Create a Listing" reference="/create_listing"/>
-                <MenuItem onClick={() => {}} label="Log Out" reference="/" />
+                <MenuItem onClick={handleLogOut} label="Log Out" reference="/" />
               </>
             ) : (
               <>
