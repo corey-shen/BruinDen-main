@@ -54,7 +54,7 @@ const FavoriteListings = () => {
       try {
         setIsLoading(true);
         console.log('Fetching listings...'); // Add this log
-        const response = await fetch('/api/listings', {
+        const response = await fetch('/api/favorite_listings', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
