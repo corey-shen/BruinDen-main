@@ -11,18 +11,21 @@ export async function POST(request: Request) {
 
     const db = client.db("test");
     const collection = db.collection("Listing");
-    
+
     const listingData = {
-      title: "Apartment Listing",
-      address: data.address,
-      price: Number(data.price),
-      bedrooms: Number(data.bedrooms),
-      bathrooms: Number(data.bathrooms),
-      squareFeet: Number(data.squareFeet),
-      amenities: data.amenities,
-      description: data.description,
-      createdAt: new Date()
-    };
+        title: "Apartment Listing",
+        category: "categories",
+        address: data.address,
+        price: Number(data.price),
+        bathrooms: Number(data.bathrooms),
+        bedrooms: Number(data.bedrooms),
+        imageUrl: "api/placeholder/800/600",
+        //location: Object,
+        squareFeet: Number(data.squareFeet),
+        amenities: data.amenities,
+        description: data.description,
+        createdAt: new Date()
+      };
 
     console.log('Attempting to insert:', listingData);
     const result = await collection.insertOne(listingData);
