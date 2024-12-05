@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import clientPromise from '../../../lib/mongodb';
+//import clientPromise from '@/lib/mongodb';
 
 export async function GET(request: Request) {
   try {
@@ -14,10 +15,10 @@ export async function GET(request: Request) {
     const db = client.db("test");
 
     const listings = await db.collection("Listing").find({
-      // Search only in address field with case-insensitive regex
-      address: { 
-        $regex: query, 
-        $options: 'i'  // case-insensitive
+      // Search with case-insensitive regex
+      address: {
+        $regex: query,
+        $options: 'i'
       }
     })
     .limit(10)
