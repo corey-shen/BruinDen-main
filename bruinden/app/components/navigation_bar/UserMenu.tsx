@@ -93,13 +93,9 @@ const UserMenu = () => {
             {currentUser ? ( //TODO: Check if user exist instead. Need to debug (code commented above)
               <>
                 {/*fetch Render if currentUser is not null */}
-                <MenuItem
-                  onClick={() => {}}
-                  label="Create a Listing"
-                  reference="/create_listing"
-                />
                 <MenuItem onClick={() => {}} label="Profile" reference="/profile" />
                 <MenuItem onClick={() => {}} label="Favorites" reference="/favorites" />
+                <MenuItem onClick={() => {}} label="Create a Listing" reference="/create_listing"/>
                 <MenuItem onClick={() => {}} label="Log Out" reference="#" />
               </>
             ) : (
