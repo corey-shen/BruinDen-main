@@ -14,19 +14,34 @@ export default async function handler(
     }
 
     try {
-      // Create a new favorite entry
-      const favorite = await prisma.favorite.create({
-        data: {
-          userId, // Link to the user who is favoriting the listing
-          listingId, // Link to the listing being favorited
+      // Check if the listing is already in the user's favorites
+      const existingFavorite = await prisma.favorite.findFirst({
+        where: {
+          userId,
+          listingId,
         },
       });
 
-      // Respond with the created favorite
-      res.status(201).json(favorite);
+      if (existingFavorite) {
+        await prisma.favorite.delete({
+          where: {
+            id: existingFavorite.id,
+          },
+        });
+        return res.status(200).json({ message: "Listing removed from favorites" });
+      } else {
+        const favorite = await prisma.favorite.create({
+          data: {
+            userId,
+            listingId,
+          },
+        });
+
+        return res.status(201).json(favorite);
+      }
     } catch (error) {
-      console.error("Error adding favorite:", error);
-      res.status(500).json({ error: "Failed to add favorite" });
+      console.error("Error adding/removing favorite:", error);
+      res.status(500).json({ error: "Failed to add or remove favorite" });
     }
   } else {
     res.status(405).json({ error: "Method Not Allowed" });
