@@ -136,7 +136,7 @@ const CreateListing = () => {
               <textarea
                 placeholder="List amenities (e.g., Parking, Laundry, Air Conditioning)"
                 value={amenities}
-                onChange={(e) => setAmenities(Math.max(0, Number(e.target.value)).toString())}
+                onChange={(e) => setAmenities(e.target.value)}
                 rows={3}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
@@ -149,7 +149,7 @@ const CreateListing = () => {
               <textarea
                 placeholder="Describe your property"
                 value={description}
-                onChange={(e) => setDescription(Math.max(0, Number(e.target.value)).toString())}
+                onChange={(e) => setDescription(e.target.value)}
                 rows={4}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
