@@ -41,7 +41,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
     }
     const fullName = firstName + " " + lastName;
     const data = {'name': fullName, 'email': email, 'password': password, 'gender': gender, 'collegeYear': collegeYear}
-    axios.post('../pages/signup', data)
+    axios.post('/api/signup', data)
       .then(function (response) {
         setIsLoading(true);
         console.log(response);
