@@ -88,9 +88,9 @@ const UserMenu = () => {
                 <MenuItem
                   onClick={() => {}}
                   label="Create a Listing"
-                  reference="#"
+                  reference="/create_listing"
                 />
-                <MenuItem onClick={() => {}} label="Profile" reference="#" />
+                <MenuItem onClick={() => {}} label="Profile" reference="/profile" />
                 <MenuItem onClick={() => {}} label="Log Out" reference="#" />
               </>
             ) : (
