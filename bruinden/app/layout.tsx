@@ -1,7 +1,7 @@
 import './globals.css';
 import { Montserrat } from 'next/font/google';
 import Navigationbar from './components/navigation_bar/Navigationbar';
-import { AuthProvider } from './components/AuthContext';
+import React from 'react';
 
 export const metadata = {
   title: 'BruinDen',
@@ -16,10 +16,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={font.className}>
-        <AuthProvider>
-          <Navigationbar />
-            {children}
-        </AuthProvider>
+        <Navigationbar />
+          {children}
       </body>
     </html>
   )

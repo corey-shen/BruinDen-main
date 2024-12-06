@@ -124,7 +124,7 @@ const CreateListing = () => {
                   type="text"
                   placeholder="Enter property address"
                   value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  onChange={(e) => setAddress(Math.max(0, Number(e.target.value)).toString())}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
@@ -161,7 +161,7 @@ const CreateListing = () => {
                     type="number"
                     placeholder="Number of bedrooms"
                     value={bedrooms}
-                    onChange={(e) => setBedrooms(e.target.value)}
+                    onChange={(e) => setBedrooms(Math.max(0, Number(e.target.value)).toString())}
                     className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
                   />
@@ -179,7 +179,7 @@ const CreateListing = () => {
                     type="number"
                     placeholder="Number of bathrooms"
                     value={bathrooms}
-                    onChange={(e) => setBathrooms(e.target.value)}
+                    onChange={(e) => setBathrooms(Math.max(0, Number(e.target.value)).toString())}
                     className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
                   />
@@ -199,7 +199,7 @@ const CreateListing = () => {
                   type="number"
                   placeholder="Square footage"
                   value={sqft}
-                  onChange={(e) => setSqft(e.target.value)}
+                  onChange={(e) => setSqft(Math.max(0, Number(e.target.value)).toString())}
                   className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
@@ -213,7 +213,7 @@ const CreateListing = () => {
               <textarea
                 placeholder="List amenities (e.g., Parking, Laundry, Air Conditioning)"
                 value={amenities}
-                onChange={(e) => setAmenities(e.target.value)}
+                onChange={(e) => setAmenities(Math.max(0, Number(e.target.value)).toString())}
                 rows={3}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
@@ -227,7 +227,7 @@ const CreateListing = () => {
               <textarea
                 placeholder="Describe your property"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => setDescription(Math.max(0, Number(e.target.value)).toString())}
                 rows={4}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
@@ -286,14 +286,15 @@ const CreateListing = () => {
             </button>
             <button
               type="submit"
-              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              className="px-6 py-3 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors bg-[#86bbd8] hover:bg-[#86bbd8]"
             >
               Create Listing
             </button>
           </div>
         </form>
+        </div>
       </div>
-    </div>
+    //</div>
   );
 };
 

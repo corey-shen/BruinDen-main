@@ -8,20 +8,6 @@ import SignUpPage from "../../../pages/auth/SignUpPage";
 import { useRouter } from 'next/navigation';
 
 const UserMenu = () => {
-  //const [currentUser, setCurrentUser] = useState<User | null>(null);
-  // useEffect(() => {
-  //   const fetchCurrentUser = async () => {
-  //     try {
-  //       const user = await getCurrentUser();
-  //      // setCurrentUser(user);
-  //     } catch (error) {
-  //       console.error("Error fetching current user", error);
-  //     }
-  //   };
-
-  //   fetchCurrentUser();
-  // }, []);
-
   const [isOpen, setIsOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
