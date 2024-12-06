@@ -3,6 +3,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Heart, ChevronDown } from 'lucide-react';
 import MapComponent from './MapComponent';
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
+import { FaHeart } from 'react-icons/fa'
 
 interface Location {
   lat: number;
@@ -20,6 +23,12 @@ interface Listing {
   bedrooms: number;
   bathrooms: number;
   distanceToUCLA?: number;
+}
+
+interface User {
+  id: string;
+  email: string;
+  token?: string;
 }
 
 const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
@@ -48,6 +57,44 @@ const HousingListings = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedListing, setSelectedListing] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<string>('distance');
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [favoritedListings, setFavoritedListings] = useState<String[]>([]);
+
+  const fetchFavorites = async () => {
+    try {
+      // setIsLoading(true);
+      console.log('Fetching listings...'); // Add this log
+      const userID = fetchUserFromToken()?.id;
+      console.log(userID);
+      if (!userID) {
+        console.log("Need userID to get favorites");
+        return;
+      }
+      console.log(userID);
+      const response = await fetch(`/api/favorite_listings?userId=${userID}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Response received:', response); // Add this log
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch listings');
+      }
+      const data: Listing[] = await response.json();
+      console.log('Data received:', data); // Add this log
+      
+      const listingIds = data.map((listing) => listing._id);
+      console.log("Favorited Listing IDs: ", listingIds);
+      
+      setFavoritedListings(listingIds);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch listings');
+    } finally {
+      // setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -88,7 +135,56 @@ const HousingListings = () => {
     };
 
     fetchListings();
+    fetchFavorites();
   }, []);
+
+  const fetchUserFromToken = () => {
+    const token = Cookies.get("auth_token");
+    console.log("token: ", token);
+    if (token) {
+      try {
+        const decodedToken = jwt.decode(token) as User;
+        console.log("decoded token: ", decodedToken);
+        setCurrentUser(decodedToken);
+        return decodedToken;
+      } catch (error) {
+        console.log("Failed to decode token", error);
+      }
+    }
+  };
+
+  
+
+  const handleLike = async (listingId: string) => {
+    // setIsLoading(true); // Set loading to true when the button is pressed
+    console.log(listingId);
+    const userId = fetchUserFromToken()?.id;
+        console.log(userId);
+        if (!userId) {
+          console.log("Login before liking posts");
+          return;
+        }
+    try {
+      const response = await fetch("/api/auth/addLike", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId,
+          listingId
+        }),
+      });
+      const result = await response.json(); // Assuming the response is in JSON format
+      console.log(result);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      alert('Error fetching data');
+    } finally {
+      // setIsLoading(false); // Set loading to false when the request completes
+    }
+    fetchFavorites();
+  };
 
   const sortedListings = useMemo(() => {
     return [...listings].sort((a, b) => {
@@ -191,8 +287,13 @@ const HousingListings = () => {
                       <button 
                         className="p-2 rounded-full hover:bg-gray-100 transition-colors"
                         aria-label="Save to favorites"
+                        onClick={() => handleLike(listing._id)}
                       >
-                        <Heart className="w-5 h-5" />
+                        {favoritedListings.includes(listing._id) ? (
+                          <FaHeart className="text-red-500"/>
+                        ) : (
+                          <FaHeart className="text-gray-500"/>
+                        )}
                       </button>
                     </div>
                     <p className="font-semibold mt-2">${listing.price.toLocaleString()}/month</p>
