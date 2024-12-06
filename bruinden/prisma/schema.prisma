@@ -58,5 +58,3 @@ model Listing {
   squareFeet Int? 
   user User @relation(fields: [userID], references: [id], onDelete: Cascade)
 }
-
-//downgrade react

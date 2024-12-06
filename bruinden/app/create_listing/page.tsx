@@ -46,35 +46,29 @@ const CreateListing = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted with data:', { // Purely for debugging purposes
-      address,
-      price,
-      bedrooms,
-      bathrooms,
-      squareFeet: sqft,
-      amenities,
-      description
-  });
+    console.log(images);
+    console.log('Form submitted');
     
     try {
-      const listingData = {
-        address,
-        price: parseInt(price),
-        bedrooms: parseInt(bedrooms),
-        bathrooms: parseInt(bathrooms),
-        squareFeet: parseInt(sqft),
-        amenities,
-        description,
-      };
+      const formData = new FormData();
+      formData.append('address', address);
+      formData.append('price', price);
+      formData.append('bedrooms', bedrooms);
+      formData.append('bathrooms', bathrooms);
+      formData.append('squareFeet', sqft);
+      formData.append('amenities', amenities);
+      formData.append('description', description);
+      
+      // Append each image to formData
+      images.forEach((image) => {
+        formData.append('images', image);
+      });
 
-      console.log('Sending data:', listingData);
+      console.log('Sending data...');
 
       const response = await fetch('/api/listings/create', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(listingData),
+        body: formData // Send as FormData, not JSON
       });
 
       console.log('Response status:', response.status);
@@ -88,10 +82,10 @@ const CreateListing = () => {
       const data = await response.json();
       console.log('Success response:', data);
 
-      // Showing success message
+      // Show success message
       alert('Listing created successfully!');
       
-      // Clearing the form
+      // Clear the form
       setAddress('');
       setPrice('');
       setBedrooms('');
