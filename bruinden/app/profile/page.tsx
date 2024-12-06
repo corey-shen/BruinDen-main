@@ -202,7 +202,7 @@ const ProfilePage = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700 mb-2">University ID</label>
+            <label className="block text-gray-700 mb-2">Password</label>
             <input
               type="text"
               value={universityId}
