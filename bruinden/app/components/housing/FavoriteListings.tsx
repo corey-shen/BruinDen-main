@@ -129,7 +129,7 @@ const FavoriteListings = () => {
   const handleLike = async (listingId: string) => {
     setIsLoading(true); // Set loading to true when the button is pressed
     console.log(listingId);
-    const userId = '674dfc9ea1b4e731a0e8b9f2'
+    const userId = fetchUserFromToken()?.id;
     try {
       const response = await fetch("/api/auth/addLike", {
         method: "POST",
@@ -251,6 +251,7 @@ const FavoriteListings = () => {
                       <button 
                         className="p-2 rounded-full hover:bg-gray-100 transition-colors"
                         aria-label="Save to favorites"
+                        type="button"
                         onClick={() => handleLike(listing._id)}
                       >
                         <Heart className="w-5 h-5" />
