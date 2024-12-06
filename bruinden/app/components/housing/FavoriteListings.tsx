@@ -5,6 +5,7 @@ import { Heart, ChevronDown } from 'lucide-react';
 import MapComponent from './MapComponent';
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
+import { FaHeart } from 'react-icons/fa'
 
 interface Location {
   lat: number;
@@ -79,55 +80,56 @@ const FavoriteListings = () => {
     fetchUserFromToken();
   }, []);
 
-  useEffect(() => {
-    const fetchListings = async () => {
-      try {
-        setIsLoading(true);
-        console.log('Fetching listings...'); // Add this log
-        const userID = fetchUserFromToken()?.id;
-        console.log(userID);
-        if (!userID) {
-          throw new Error('Login first to see listings');
-        }
-        console.log(userID);
-        const response = await fetch(`/api/favorite_listings?userId=${userID}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        console.log('Response received:', response); // Add this log
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch listings');
-        }
-        const data = await response.json();
-        console.log('Data received:', data); // Add this log
-        
-        // Add distance calculation
-        const listingsWithDistance = data.map((listing: Listing) => ({
-          ...listing,
-          distanceToUCLA: calculateDistance(
-            34.0689,
-            -118.4452,
-            listing.location.lat,
-            listing.location.lng
-          )
-        }));
-        
-        setListings(listingsWithDistance);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch listings');
-      } finally {
-        setIsLoading(false);
+  const fetchListings = async () => {
+    try {
+      // setIsLoading(true);
+      console.log('Fetching listings...'); // Add this log
+      const userID = fetchUserFromToken()?.id;
+      console.log(userID);
+      if (!userID) {
+        throw new Error('Login first to see listings');
       }
-    };
+      console.log(userID);
+      const response = await fetch(`/api/favorite_listings?userId=${userID}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Response received:', response); // Add this log
 
+      if (!response.ok) {
+        throw new Error('Failed to fetch listings');
+      }
+      const data = await response.json();
+      console.log('Data received:', data); // Add this log
+      
+      // Add distance calculation
+      const listingsWithDistance = data.map((listing: Listing) => ({
+        ...listing,
+        distanceToUCLA: calculateDistance(
+          34.0689,
+          -118.4452,
+          listing.location.lat,
+          listing.location.lng
+        )
+      }));
+      
+      setListings(listingsWithDistance);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch listings');
+    } finally {
+      // setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setIsLoading(true)
     fetchListings();
+    setIsLoading(false);
   }, []);
 
   const handleLike = async (listingId: string) => {
-    setIsLoading(true); // Set loading to true when the button is pressed
     console.log(listingId);
     const userId = fetchUserFromToken()?.id;
     try {
@@ -146,8 +148,8 @@ const FavoriteListings = () => {
       console.error('Error fetching data:', error);
       alert('Error fetching data');
     } finally {
-      setIsLoading(false); // Set loading to false when the request completes
     }
+    fetchListings();
   };
 
   const sortedListings = useMemo(() => {
@@ -254,7 +256,7 @@ const FavoriteListings = () => {
                         type="button"
                         onClick={() => handleLike(listing._id)}
                       >
-                        <Heart className="w-5 h-5" />
+                        <FaHeart className="text-red-500"/>
                       </button>
                     </div>
                     <p className="font-semibold mt-2">${listing.price.toLocaleString()}/month</p>
