@@ -73,6 +73,7 @@ const UserMenu = () => {
 
   const handleLogOut = useCallback(() => {
     setCurrentUser(null);
+    Cookies.remove("auth_token");
   }, [] );
   return (
     <div className="relative">
