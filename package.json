@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "formdata-node": "^6.0.3",
     "query-string": "^9.1.1",
-    "react-icons": "^5.3.0"
+    "react-icons": "^5.3.0",
+    "typescript": "^5.7.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",

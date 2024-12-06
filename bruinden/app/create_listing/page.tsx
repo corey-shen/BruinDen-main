@@ -46,7 +46,15 @@ const CreateListing = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted');
+    console.log('Form submitted with data:', { // Purely for debugging purposes
+      address,
+      price,
+      bedrooms,
+      bathrooms,
+      squareFeet: sqft,
+      amenities,
+      description
+  });
     
     try {
       const listingData = {

@@ -53,7 +53,9 @@ model Listing {
   address String
   userID String @db.ObjectId
   price Int
-
+  amenities String?   
+  location Json?      
+  squareFeet Int? 
   user User @relation(fields: [userID], references: [id], onDelete: Cascade)
 }
 

@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const client = await clientPromise;
     const db = client.db("test");
     
-    // Add creation timestamp
+    // creation timestamp for reference (won't be displayed, but shows up in our database)
     const listingData = {
       ...data,
       createdAt: new Date(),
