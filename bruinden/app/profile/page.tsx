@@ -36,10 +36,6 @@ const ProfilePage = () => {
     // Should save the updated info to the database
   }, [firstName, lastName, universityId, collegeYear, gender]);
 
-  const handleCancel = useCallback(() => {
-    // Handle cancel action
-  }, []);
-
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 style={{ fontSize: "50px", marginTop: "100px", marginBottom: "20px", display: "flex", alignItems: "center", fontWeight: "bold", justifyContent: "center", textAlign: "center", color: "#2F4858"}}>Profile Information</h1>
@@ -136,12 +132,6 @@ const ProfilePage = () => {
           </div>
 
           <div className="flex justify-end space-x-4 mt-6">
-            <button
-              onClick={handleCancel}
-              className="py-2 px-6 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
-            >
-              Cancel
-            </button>
             <button
               onClick={handleSave}
               className="py-2 px-6 text-white rounded-md bg-[#86bbd8] hover:bg-[#86bbd8]"
