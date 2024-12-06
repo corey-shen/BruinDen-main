@@ -41,7 +41,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
     }
     const fullName = firstName + " " + lastName;
     const data = {'name': fullName, 'email': email, 'password': password, 'gender': gender, 'collegeYear': collegeYear}
-    axios.post('../pages/signup', data)
+    axios.post('/api/signup', data)
       .then(function (response) {
         setIsLoading(true);
         console.log(response);
@@ -59,16 +59,6 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
   const handleImageUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setProfileImage(event.target.files[0]);
-    }
-  }, []);
-
-  const handleUniversityIdChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    if (/^\d*$/.test(value)) {
-      setUniversityId(value);
-      setIdError('');
-    } else {
-      setIdError('University ID must be a number');
     }
   }, []);
 
@@ -107,14 +97,6 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-2 py-2 px-4 border border-gray-300 rounded-md text-sm"
-          style={{ color: '#2F4858', fontSize: '0.875rem' }}
-        />
-        <input
-          type="text"
-          placeholder="University ID#"
-          value={universityId}
-          onChange={handleUniversityIdChange}
           className="w-full mb-2 py-2 px-4 border border-gray-300 rounded-md text-sm"
           style={{ color: '#2F4858', fontSize: '0.875rem' }}
         />

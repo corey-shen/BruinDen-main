@@ -20,7 +20,8 @@ model User {
   collegeYear String?
   gender String?
   accounts Account[]
-  listings Listing[]
+  listings Listing[] @relation("UserListings")
+  favorites Favorite[]
   posts Post[]
   comments Comment[]
 }
@@ -58,10 +59,21 @@ model Listing {
   amenities String?   
   location Json?      
   squareFeet Int? 
-  user User @relation(fields: [userID], references: [id], onDelete: Cascade)
+  user User @relation("UserListings", fields: [userID], references: [id], onDelete: Cascade)
 <<<<<<< HEAD:bruinden/prisma/schema.prisma
 }
 =======
+  favoritedBy    Favorite[]
+}
+
+model Favorite {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  listingId  String   @db.ObjectId
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }
 
 model Post {

@@ -12,6 +12,12 @@ interface Location {
   lng: number;
 }
 
+interface User {
+  id: string;
+  email: string;
+  token?: string;
+}
+
 interface Listing {
   _id: string;
   title: string;
@@ -23,12 +29,6 @@ interface Listing {
   bedrooms: number;
   bathrooms: number;
   distanceToUCLA?: number;
-}
-
-interface User {
-  id: string;
-  email: string;
-  token?: string;
 }
 
 const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
@@ -51,92 +51,13 @@ const SORT_OPTIONS = [
   { value: 'beds-desc', label: 'Bedrooms: Most to Least' }
 ];
 
-const HousingListings = () => {
+const FavoriteListings = () => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedListing, setSelectedListing] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<string>('distance');
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [favoritedListings, setFavoritedListings] = useState<String[]>([]);
-
-  const fetchFavorites = async () => {
-    try {
-      // setIsLoading(true);
-      console.log('Fetching listings...'); // Add this log
-      const userID = fetchUserFromToken()?.id;
-      console.log(userID);
-      if (!userID) {
-        console.log("Need userID to get favorites");
-        return;
-      }
-      console.log(userID);
-      const response = await fetch(`/api/favorite_listings?userId=${userID}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log('Response received:', response); // Add this log
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch listings');
-      }
-      const data: Listing[] = await response.json();
-      console.log('Data received:', data); // Add this log
-      
-      const listingIds = data.map((listing) => listing._id);
-      console.log("Favorited Listing IDs: ", listingIds);
-      
-      setFavoritedListings(listingIds);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch listings');
-    } finally {
-      // setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const fetchListings = async () => {
-      try {
-        setIsLoading(true);
-        console.log('Fetching listings...'); // Add this log
-        const response = await fetch('/api/listings', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        console.log('Response received:', response); // Add this log
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch listings');
-        }
-        const data = await response.json();
-        console.log('Data received:', data); // Add this log
-        
-        // Add distance calculation
-        const listingsWithDistance = data.map((listing: Listing) => ({
-          ...listing,
-          distanceToUCLA: calculateDistance(
-            34.0689,
-            -118.4452,
-            listing.location.lat,
-            listing.location.lng
-          )
-        }));
-        
-        setListings(listingsWithDistance);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch listings');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchListings();
-    fetchFavorites();
-  }, []);
 
   const fetchUserFromToken = () => {
     const token = Cookies.get("auth_token");
@@ -153,17 +74,64 @@ const HousingListings = () => {
     }
   };
 
-  
+  useEffect(() => {
+    
+
+    fetchUserFromToken();
+  }, []);
+
+  const fetchListings = async () => {
+    try {
+      // setIsLoading(true);
+      console.log('Fetching listings...'); // Add this log
+      const userID = fetchUserFromToken()?.id;
+      console.log(userID);
+      if (!userID) {
+        throw new Error('Login first to see listings');
+      }
+      console.log(userID);
+      const response = await fetch(`/api/favorite_listings?userId=${userID}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Response received:', response); // Add this log
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch listings');
+      }
+      const data = await response.json();
+      console.log('Data received:', data); // Add this log
+      
+      // Add distance calculation
+      const listingsWithDistance = data.map((listing: Listing) => ({
+        ...listing,
+        distanceToUCLA: calculateDistance(
+          34.0689,
+          -118.4452,
+          listing.location.lat,
+          listing.location.lng
+        )
+      }));
+      
+      setListings(listingsWithDistance);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch listings');
+    } finally {
+      // setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setIsLoading(true)
+    fetchListings();
+    setIsLoading(false);
+  }, []);
 
   const handleLike = async (listingId: string) => {
-    // setIsLoading(true); // Set loading to true when the button is pressed
     console.log(listingId);
     const userId = fetchUserFromToken()?.id;
-        console.log(userId);
-        if (!userId) {
-          console.log("Login before liking posts");
-          return;
-        }
     try {
       const response = await fetch("/api/auth/addLike", {
         method: "POST",
@@ -176,14 +144,12 @@ const HousingListings = () => {
         }),
       });
       const result = await response.json(); // Assuming the response is in JSON format
-      console.log(result);
     } catch (error) {
       console.error('Error fetching data:', error);
       alert('Error fetching data');
     } finally {
-      // setIsLoading(false); // Set loading to false when the request completes
     }
-    fetchFavorites();
+    fetchListings();
   };
 
   const sortedListings = useMemo(() => {
@@ -214,7 +180,7 @@ const HousingListings = () => {
   }
 
   return (
-    <main className="pt-24" style = {{zIndex: "1"}}>
+    <main className="pt-24">
       <div className="flex flex-col lg:flex-row h-[calc(100vh-5rem)]">
         {/* Map Section */}
         <div className="w-full lg:w-1/2 h-[50vh] lg:h-full lg:sticky lg:top-20">
@@ -233,14 +199,14 @@ const HousingListings = () => {
         {/* Listings Section */}
         <div className="w-full lg:w-1/2 h-[50vh] lg:h-full overflow-y-auto px-4 lg:px-8 pb-8">
           <div className="sticky top-0 py-8 z-10">
-          <div className="bg-[#F6AE2D] px-4 py-2 rounded-lg">
+          <div className="bg-[#A7C7E7] px-4 py-2 rounded-lg">
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-[#FFFFFF]">PLACES FOR YOU</h2>
+                <h2 className="text-2xl font-bold text-[#2F4858]">FAVORITE LISTINGS</h2>
               <div className="relative">
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-[#F6AE2D]"
+                  className="appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-[#2F4858]"
                 >
                   {SORT_OPTIONS.map(option => (
                     <option key={option.value} value={option.value}>
@@ -254,7 +220,7 @@ const HousingListings = () => {
           </div>
           </div>
 
-          <div className="h-[525px] border-4 border-[#F6AE2D] rounded-xl bg-white/50 p-2 overflow-y-auto">
+          <div className="h-[525px] border-2 border-[#89CFF0]/30 rounded-xl bg-white/50 p-2 overflow-y-auto">
 
           <div className="space-y-4 pb-8">
             {sortedListings.map((listing) => (
@@ -287,13 +253,10 @@ const HousingListings = () => {
                       <button 
                         className="p-2 rounded-full hover:bg-gray-100 transition-colors"
                         aria-label="Save to favorites"
+                        type="button"
                         onClick={() => handleLike(listing._id)}
                       >
-                        {favoritedListings.includes(listing._id) ? (
-                          <FaHeart className="text-red-500"/>
-                        ) : (
-                          <FaHeart className="text-gray-500"/>
-                        )}
+                        <FaHeart className="text-red-500"/>
                       </button>
                     </div>
                     <p className="font-semibold mt-2">${listing.price.toLocaleString()}/month</p>
@@ -309,4 +272,4 @@ const HousingListings = () => {
   );
 };
 
-export default HousingListings;
+export default FavoriteListings;

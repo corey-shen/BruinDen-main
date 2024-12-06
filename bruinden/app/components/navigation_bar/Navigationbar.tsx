@@ -9,10 +9,6 @@ import About from "./About";
 import Meet_People from './Meet_People';
 import { Suspense } from "react";
 
-import { MdAttachMoney, MdBedroomParent, MdBathroom } from 'react-icons/md';
-import MenuItem from './MenuItem';
-import { useRouter } from 'next/navigation';
-
 const Navigationbar = () => {
   return (
     <div className="fixed w-full shadow-xl" style={{ backgroundColor: '#33658A' , zIndex: "1000"}}>
